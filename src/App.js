@@ -1,24 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
+import store from './store/store'
+import { Provider,connect} from 'react-redux'
 
-function App() {
+
+const Test=connect(
+  state=>({authenticated:state.auth.authenticated})
+  )( ({authenticated})=>{
+    console.log(authenticated)
+   if(authenticated === false )
+   return <p>return authentication page for user to logg in </p>
+
+   return <p>user is logged </p>
+})
+const App=()=> {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}> 
+         <Test />
+  </Provider>
   );
 }
 
