@@ -1,11 +1,12 @@
 // import {fetchClients,fetchClient,addClient} from 'db'
+import  {clientSchema,sessionSchema,thootNumbers} from './client.schema'
 
 const model ={
     state:{
         clients:[],
         clientsVisitingToday:[],
         clientsVisitingTodayCount:0,
-        visitedClient:{}
+        visitedClient:undefined
     },
     reducers:{
         fetchedClients : (state,{clients})=>({
@@ -33,7 +34,7 @@ const model ={
                 dispatch.clients.fetchTodaysClients({clients})
                 dispatch.clients.fetchedClients({clients})
             } catch (error) {
-                console.log("------login------")
+                console.log("error in :fetchClients ")
                 console.log(error)
             }
         },
@@ -47,19 +48,36 @@ const model ={
                 // const todaysClients=clients.filter(checkIfHasSession)
                 dispatch.clients.fetchedTodaysClients({clientsVisitingToday:[]})
             } catch (error) {
-                console.log("------logout------")
+                console.log("error in :getTodaysClients ")
+                 console.log(error)
             }
         },
         getClientById({id},state){
             try {
                  // check if already visited
+                 // filter by id 
                  // get clients from state 
-                 const clients = state.clients.clients 
-                 //filter by id 
-                 const visitedClient={}
-                 dispatch.auth.fetchedClientByID({visitedClient})
+                 const session = sessionSchema(
+                    thootNumbers[0],
+                    "intevention",
+                    1000,
+                    500,
+                    500
+                )
+
+                 const client = clientSchema(
+                     'said',
+                     'fatah',
+                     'CINO9809',
+                     [
+                         session
+                     ]
+                 )
+                 console.log(client )
+                 dispatch.clients.fetchedClientByID({visitedClient:client})
              } catch (error) {
-                 console.log("------getClientById------")
+                 console.log("error in : getClientById")
+                 console.log(error)
              }
          },
 
