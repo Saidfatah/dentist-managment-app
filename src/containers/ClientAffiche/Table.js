@@ -1,9 +1,10 @@
 import React from 'react'
-import Loader from '../components/Loader'
-import {thootNumbers} from '../store/models/clients/client.schema.js'
-import {Datefunc} from './Datefunc'
+import dateFormater from '../../utils/formatDate'
 
+
+import {thootNumbers} from '../../store/models/clients/client.schema.js'
 const thootnbr=thootNumbers
+
 const TABLE_HEADERS=[
     "date",
     "N°dente",
@@ -12,13 +13,22 @@ const TABLE_HEADERS=[
     "reçue",
     "reste",
 ]
+
+const DropdawnList =()=>{
+    const options = thootnbr.map(thootNumber=> (<option value={thootNumber}>{thootNumber}</option>))
+         return <select 
+         className='w-full p-2   border-2 border-gray-200 ' >
+             {options}
+        </select>  
+   }
+
 const Table=({sessions})=>{
     const TableHead = ()=>{
       return  <thead>
       <tr>
          {
              TABLE_HEADERS.map(header=> <th
-                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                class="px-5 py-3 text-left border-b-2 border-gray-200 bg-gray-100  text-xs font-semibold text-gray-700 uppercase tracking-wider"
               >
                 {header}
              </th>)
@@ -31,22 +41,26 @@ const Table=({sessions})=>{
     const FormRow=()=>{
         return <tr>
             <td className="y-2 bg-white text-sm">
-                <Datefunc /> 
+              <input 
+              value={dateFormater(new Date())}
+              readOnly
+              className='bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500' 
+              />
             </td>
             <td className="y-2 bg-white text-sm"> 
             <DropdawnList/>
             </td>
             <td className="y-2 bg-white text-sm"> 
-            <input />
+            <input className='bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500' />
             </td>
             <td className="y-2 bg-white text-sm"> 
-            <input />
+            <input className='bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500' />
             </td>
             <td className="y-2 bg-white text-sm"> 
-            <input />
+            <input className='bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500' />
             </td>
             <td className="y-2 bg-white text-sm"> 
-            <input />
+            <input className='bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500' />
             </td>
         </tr>
     }
@@ -59,7 +73,7 @@ const Table=({sessions})=>{
                (<tr>
                    {
                        Array.from(Object.keys(session)).map((key)=>
-                       <td class="y-2 bg-white text-sm">
+                       <td class="y-2  px-5 py-3 text-left bg-white text-sm">
                        <p class="text-gray-900 whitespace-no-wrap">
                         {
                            key==="date"?
@@ -92,27 +106,5 @@ const Table=({sessions})=>{
         <TableBody  />
     </table>
 }
-// ___________dropdawnList
-const DropdawnList =()=>{
- const list = thootnbr.map(thootNumber=>
-    (
-            <option value={thootNumber}>{thootNumber}</option>
-   ) 
-  )
-      return <select className='w-full'>{list}</select>  
-}
-// ________________________
- // azaz
-const ClientAffiche = ({client}) => {
 
-    if(client == undefined || client == null )return <Loader />
-    return (
-        
-        <div className='inline-block min-w-full shadow-md rounded-lg overflow-hidden' >
-           <Table sessions={client.sessions} />
-        </div>
-        
-    )
-}
-
-export default ClientAffiche
+export default Table;

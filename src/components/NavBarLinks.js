@@ -15,7 +15,7 @@ const NavBarLinks = ({direction,hideSideBar}) => {
     return (
         <ul 
         onClick={()=>hideSideBar && hideSideBar()}
-        class={"flex items-center flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium "+direction}>
+        class={"flex items-center mt-4 md:space-x-8 md:mt-0 md:text-sm md:font-medium "+direction}>
         <li className='p-4' >
            <Link class={LinkClasses} to="/">Les Client D'aujhordui</Link>
         </li>

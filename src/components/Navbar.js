@@ -7,9 +7,6 @@ import NavBarLinks from './NavBarLinks'
 
 const isMobile = document.body.offsetWidth <= 766
 const Navbar = ({showSideBar}) => {
-    const textColor='text'+colors.black + 'hover:text'+colors.secondary
-    const textClasses=textColor + fontSizes.paragraph
-    const LinkClasses = textClasses + "block py-2 pr-4 pl-3  md:border-0  md:p-0 "
     
     return (
         <nav class="bg-white border-gray-200 text px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800">
@@ -19,7 +16,7 @@ const Navbar = ({showSideBar}) => {
           class="hidden w-full md:block md:w-auto" 
           id="mobile-menu"
           >
-            <NavBarLinks  />
+            <NavBarLinks direction="col-row"  />
           </div>
           <button
           disabled={!isMobile}
