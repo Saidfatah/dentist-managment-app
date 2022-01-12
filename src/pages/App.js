@@ -1,14 +1,12 @@
 import '../styles/App.css';
-import store from '../store/store'
 import { Provider} from 'react-redux'
-import Routes from './routes'
-
- 
+import Layout  from './Layout';
+import store from '../store/store'
 const App=()=> {
   return (
     <Provider store={store}> 
-         <Routes />
-  </Provider>
+     <Layout />        
+    </Provider>
   );
 }
 

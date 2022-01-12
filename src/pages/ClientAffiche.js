@@ -2,12 +2,13 @@ import React,{useEffect} from 'react'
 import ClientAfficheContainer from '../containers/ClientAffiche'
 import {useParams} from "react-router-dom";
 import { connect } from 'react-redux';
+
 const ClientAffiche = ({client,getClientById}) => {
     let { id } = useParams();
 
     useEffect(() => {
         getClientById({id})
-    }, [])
+    }, [getClientById])
 
     console.log(client)
     return (

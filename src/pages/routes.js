@@ -5,11 +5,15 @@ import {
 } from "react-router-dom";
 
 import ClientAffiche from './ClientAffiche'
+import Regsiter from './Regsiter'
+import Dashboard from './Dashboard'
+
 const RoutesInit=()=> {
   return (
       <Routes>
-        <Route path="/" element={<p>dashboard here</p>} />
+        <Route path="/" element={<Dashboard />} />
         <Route  path="clientPage/:id" element={<ClientAffiche />} />
+        <Route  path="register" element={<Regsiter />} />
       </Routes>
   );
 }

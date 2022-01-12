@@ -102,11 +102,10 @@ const DropdawnList =()=>{
       return <select className='w-full'>{list}</select>  
 }
 // ________________________
+ // azaz
 const ClientAffiche = ({client}) => {
 
     if(client == undefined || client == null )return <Loader />
-    console.log(client===undefined || client === null)
-    console.log(client)
     return (
         
         <div className='inline-block min-w-full shadow-md rounded-lg overflow-hidden' >
