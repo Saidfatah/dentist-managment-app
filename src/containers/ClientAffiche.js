@@ -1,9 +1,12 @@
 import React from 'react'
 import Loader from '../components/Loader'
+import {thootNumbers} from '../store/models/clients/client.schema.js'
+import {Datefunc} from './Datefunc'
 
+const thootnbr=thootNumbers
 const TABLE_HEADERS=[
     "date",
-    "Ndente",
+    "N°dente",
     "intervention",
     "prix",
     "reçue",
@@ -27,22 +30,22 @@ const Table=({sessions})=>{
 
     const FormRow=()=>{
         return <tr>
-            <td class="y-2 bg-white text-sm"> 
+            <td className="y-2 bg-white text-sm">
+                <Datefunc /> 
+            </td>
+            <td className="y-2 bg-white text-sm"> 
+            <DropdawnList/>
+            </td>
+            <td className="y-2 bg-white text-sm"> 
             <input />
             </td>
-            <td class="y-2 bg-white text-sm"> 
+            <td className="y-2 bg-white text-sm"> 
             <input />
             </td>
-            <td class="y-2 bg-white text-sm"> 
+            <td className="y-2 bg-white text-sm"> 
             <input />
             </td>
-            <td class="y-2 bg-white text-sm"> 
-            <input />
-            </td>
-            <td class="y-2 bg-white text-sm"> 
-            <input />
-            </td>
-            <td class="y-2 bg-white text-sm"> 
+            <td className="y-2 bg-white text-sm"> 
             <input />
             </td>
         </tr>
@@ -52,6 +55,7 @@ const Table=({sessions})=>{
          return   <tbody className='w-full' >
            {
                sessions.map(session=>
+                
                (<tr>
                    {
                        Array.from(Object.keys(session)).map((key)=>
@@ -88,17 +92,27 @@ const Table=({sessions})=>{
         <TableBody  />
     </table>
 }
-
+// ___________dropdawnList
+const DropdawnList =()=>{
+ const list = thootnbr.map(thootNumber=>
+    (
+            <option value={thootNumber}>{thootNumber}</option>
+   ) 
+  )
+      return <select className='w-full'>{list}</select>  
+}
+// ________________________
 const ClientAffiche = ({client}) => {
 
     if(client == undefined || client == null )return <Loader />
     console.log(client===undefined || client === null)
     console.log(client)
     return (
+        
         <div className='inline-block min-w-full shadow-md rounded-lg overflow-hidden' >
            <Table sessions={client.sessions} />
- 
         </div>
+        
     )
 }
 

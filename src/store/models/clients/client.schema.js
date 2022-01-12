@@ -8,11 +8,11 @@ export const thootNumbers =[
 export const sessionSchema=(toothNumber,intervention,price,received,reste)=>{
     return {
         date:new Date(),
+        toothNumber: toothNumber || "NOT_ASSIGNED",
         intervention:intervention || "NOT_ASSIGNED",
         price :price || 0 ,
         received :received || 0 ,
         reste :reste || 0 ,
-        toothNumber: toothNumber || "NOT_ASSIGNED"
     }
 }
 
