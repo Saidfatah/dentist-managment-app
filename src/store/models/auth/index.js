@@ -20,6 +20,7 @@ const model ={
                 console.log("login")
                 
                 dispatch.auth.logged({user:null})
+                // dispatch.authenticated.logged({user:null})
             } catch (error) {
                 console.log("------login------")
                 console.log(error)
