@@ -1,7 +1,7 @@
 import React from 'react'
 import Icon from './Icon'
 import {connect} from 'react-redux'
-import {colors,fontSizes, fontWeights} from '../utils/values'
+import {fontWeights} from '../utils/values'
 import NavBarLinks from './NavBarLinks'
 
 
