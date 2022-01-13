@@ -7,7 +7,7 @@ const Icon = ({name,size,classes,styles={}}) => {
     if(name === "ADD") 
     return <svg
      xmlns="http://www.w3.org/2000/svg" 
-     class={_classes} 
+     className={_classes} 
      style={{
          height:_size,
          width:_size,
@@ -17,12 +17,12 @@ const Icon = ({name,size,classes,styles={}}) => {
      viewBox="0 0 24 24" 
      stroke="currentColor"
      >
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+    <path stroke-linecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
 
     if(name === "LOGO")
      return <svg 
-     class={_classes} 
+     className={_classes} 
      style={{
         height:_size,
         width:_size,
@@ -34,7 +34,7 @@ const Icon = ({name,size,classes,styles={}}) => {
     
     if(name === "CLOSE")
      return <svg 
-     class={_classes} 
+     className={_classes} 
      style={{
         height:_size,
         width:_size,
@@ -43,7 +43,7 @@ const Icon = ({name,size,classes,styles={}}) => {
      viewBox="0 0 52 72" 
      fill="none" 
      xmlns="http://www.w3.org/2000/svg">
-     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
      </svg>
     return null
 }

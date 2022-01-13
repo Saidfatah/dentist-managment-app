@@ -1,5 +1,7 @@
     // import {fetchClients,fetchClient,addClient} from 'db'
 import  {clientSchema,sessionSchema,thootNumbers} from './client.schema'
+import {fetchClientsFromDb,updateClientInDb} from "../../../db"
+
 
 const model ={
     state:{
@@ -9,6 +11,10 @@ const model ={
         visitedClient:undefined
     },
     reducers:{
+        addedSession:(state,{clients})=>({
+            ...state,
+           clients:[...clients]
+        }),
         fetchedClients : (state,{clients})=>({
           ...state,
           clients,
@@ -20,19 +26,32 @@ const model ={
         }),
         fetchedClientByID : (state,{visitedClient})=>({
           ...state,
-          visitedClient
+          visitedClient:{...visitedClient}
         }),
  
     },
     effects: (dispatch)=>({
         fetchClients(field,state){
            try {
-                console.log("fetch all clients ")
-                // const clients =await fetchClients()
-                const clients =[]
-                
-                dispatch.clients.fetchTodaysClients({clients})
+                    const session = sessionSchema(
+                    thootNumbers[0],
+                    "intevention",
+                    1000,
+                    500,
+                    500
+                )
+
+                 const client = clientSchema(
+                     'said',
+                     'fatah',
+                     'CINO9809',
+                     [
+                         session
+                     ]
+                 )
+                const clients = fetchClientsFromDb()
                 dispatch.clients.fetchedClients({clients})
+                // dispatch.clients.fetchTodaysClients({clients})
             } catch (error) {
                 console.log("error in :fetchClients ")
                 console.log(error)
@@ -53,33 +72,49 @@ const model ={
             }
         },
         getClientById({id},state){
-            try {
-                 // check if already visited
-                 // filter by id 
-                 // get clients from state 
-                 const session = sessionSchema(
-                    thootNumbers[0],
-                    "intevention",
-                    1000,
-                    500,
-                    500
-                )
+            try { 
+                 const clients =state.clients.clients
 
-                 const client = clientSchema(
-                     'said',
-                     'fatah',
-                     'CINO9809',
-                     [
-                         session
-                     ]
-                 )
-                 console.log(client )
-                 dispatch.clients.fetchedClientByID({visitedClient:client})
+                 const targetClient = clients.filter(c=>c.id === id)[0]
+                 console.log(targetClient)
+                 dispatch.clients.fetchedClientByID({visitedClient:targetClient})
              } catch (error) {
                  console.log("error in : getClientById")
                  console.log(error)
              }
          },
+         addsession(form,state){
+            try {
+             
+                 const {price,reste,received,intervention,toothNumber}= form     
+                 const session = sessionSchema(
+                    toothNumber,
+                    intervention,
+                    price,
+                    received,
+                    reste
+                )
+                
+                //get client id
+                const {id}=state.clients.visitedClient
+                const clients =state.clients.clients
+                const targetClient = clients.filter(c=>c.id === id)[0]
+                if(targetClient){
+                    console.log(targetClient)
+                    targetClient.sessions.push(session) 
+
+                    updateClientInDb(clients)
+
+                    dispatch.clients.addedSession({clients})
+                    dispatch.clients.getClientById({id})
+                }
+                //const targetClientIndex = clients.indexOf(targetClient)
+             } catch (error) {
+                 console.log("error in : getClientById")
+                 console.log(error)
+             }
+         }
+         
 
     })
 }
