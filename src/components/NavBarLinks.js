@@ -15,12 +15,12 @@ const NavBarLinks = ({direction,hideSideBar}) => {
     return (
         <ul 
         onClick={()=>hideSideBar && hideSideBar()}
-        class={"flex items-center mt-4 md:space-x-8 md:mt-0 md:text-sm md:font-medium "+direction}>
+        className={"flex items-center mt-4 md:space-x-8 md:mt-0 md:text-sm md:font-medium "+direction}>
         <li className='p-4' >
-           <Link class={LinkClasses} to="/">Les Client D'aujhordui</Link>
+           <Link className={LinkClasses} to="/">Les Client D'aujhordui</Link>
         </li>
         <li className='p-4' >
-           <Link class={LinkClasses} to="/register">Register</Link>
+           <Link className={LinkClasses} to="/register">Register</Link>
         </li>
         <ActionButton   >
            <div className={'flex justify-between items-center '   }>

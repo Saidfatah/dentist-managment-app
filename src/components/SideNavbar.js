@@ -12,7 +12,7 @@ const SideNavbar = ({visible,hideSideBar}) => {
                  left:!visible?-WIDTH:0,
                  transition:'left .3s   cubic-bezier(.02,.65,.32,1.38)'
              }}
-            class="absolute z-50 shadow bg-white h-screen top-0 ">
+            className="absolute z-50 shadow bg-white h-screen top-0 ">
                 <NavBarLinks hideSideBar={hideSideBar} direction="flex-col" />
            </div>
 

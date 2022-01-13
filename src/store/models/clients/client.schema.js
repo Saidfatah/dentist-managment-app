@@ -1,3 +1,4 @@
+import {v4} from 'uuid'
 export const thootNumbers =[
     "H1",
     "H2",
@@ -18,6 +19,7 @@ export const sessionSchema=(toothNumber,intervention,price,received,reste)=>{
 
 export const clientSchema = (firstName,lastName,CIN,sessions)=>{
   return ({
+      id:v4(),
       firstName,
       lastName,
       CIN ,

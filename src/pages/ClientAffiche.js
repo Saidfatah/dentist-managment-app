@@ -7,13 +7,15 @@ const ClientAffiche = ({client,getClientById}) => {
     let { id } = useParams();
 
     useEffect(() => {
-        getClientById({id})
+        setTimeout(() => {
+            
+            getClientById({id})
+        }, 2000);
     }, [getClientById])
 
-    console.log(client)
     return (
         <div>
-           <ClientAfficheContainer client={client} />
+           <ClientAfficheContainer client={client}  />
         </div>
     )
 }
@@ -23,7 +25,7 @@ export default connect(
        client:state.clients.visitedClient
     }),
     (dispatch)=>({
-        getClientById:dispatch.clients.getClientById
+        getClientById:dispatch.clients.getClientById,
     }),
 
 )(ClientAffiche)
