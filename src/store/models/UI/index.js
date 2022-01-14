@@ -2,30 +2,46 @@
 const model ={
     state:{
         visible:false,
+        modalIsOpen:false,
     },
     reducers:{
-        showedSideBar : (state,args)=>({
+        toggledSideBarVisible : (state,visible)=>({
           ...state,
-          visible:true,
+          visible,
         }),
-        hidedSideBar : (state,args)=>({
+        toggledModalIsOpen : (state,modalIsOpen)=>({
           ...state,
-          visible:false,
+          modalIsOpen,
         }),
     },
     effects: (dispatch)=>({
-        showSideBar(field,state){
+        showSideBar(){
            try { 
-               console.log("showsidebar")
-                dispatch.UI.showedSideBar()
+                dispatch.UI.toggledSideBarVisible(true)
             } catch (error) {
                 console.log("------showSidebar------")
                 console.log(error)
             }
         },
-        hideSideBar(field,state){
+        hideSideBar(){
            try { 
-                dispatch.UI.hidedSideBar()
+                dispatch.UI.toggledSideBarVisible(false)
+            } catch (error) {
+                console.log("------hideSideBar------")
+                console.log(error)
+            }
+        },
+        hideModal(){
+           try { 
+                dispatch.UI.toggledModalIsOpen(false)
+            } catch (error) {
+                console.log("------hideSideBar------")
+                console.log(error)
+            }
+        },
+        showModal(){
+           try { 
+                dispatch.UI.toggledModalIsOpen(true)
             } catch (error) {
                 console.log("------hideSideBar------")
                 console.log(error)
