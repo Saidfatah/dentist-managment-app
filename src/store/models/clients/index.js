@@ -1,6 +1,6 @@
     // import {fetchClients,fetchClient,addClient} from 'db'
 import  {clientSchema,sessionSchema,thootNumbers} from './client.schema'
-import {fetchClientsFromDb,updateClientInDb} from "../../../db"
+import {fetchClientsFromDb,updateClientInDb,addClientToDb} from "../../../db"
 
 
 const model ={
@@ -11,6 +11,10 @@ const model ={
         visitedClient:undefined
     },
     reducers:{
+        addedClient:(state,clients)=>({
+            ...state,
+          clients
+        }),
         addedSession:(state,{clients})=>({
             ...state,
            clients:[...clients]
@@ -107,13 +111,31 @@ const model ={
 
                     dispatch.clients.addedSession({clients})
                     dispatch.clients.getClientById({id})
+                    //const targetClientIndex = clients.indexOf(targetClient)
                 }
-                //const targetClientIndex = clients.indexOf(targetClient)
-             } catch (error) {
+             } 
+             catch (error) {
                  console.log("error in : getClientById")
                  console.log(error)
              }
-         }
+         },
+         addnewclient(form,state){
+             console.log(form)
+    const {firstName,lastName,age,tel,profession,adress,CIN}=form
+     const newClient = clientSchema(
+         firstName,
+         lastName,
+         age,
+         tel,
+         profession,
+         adress,
+         CIN
+     ) 
+     const clients=state.clients.clients
+     addClientToDb([...clients,newClient])
+     dispatch.clients.addedClient([...clients,newClient])
+
+                }
          
 
     })

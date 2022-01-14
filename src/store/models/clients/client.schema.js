@@ -17,11 +17,16 @@ export const sessionSchema=(toothNumber,intervention,price,received,reste)=>{
     }
 }
 
-export const clientSchema = (firstName,lastName,CIN,sessions)=>{
+      
+export const clientSchema = (firstName,lastName,CIN,tel,age,profession,adress,sessions)=>{
   return ({
       id:v4(),
       firstName,
       lastName,
+      tel,
+      age,
+      profession,
+      adress,
       CIN ,
       initialBalance:0,
       sessions: sessions || [] ,
