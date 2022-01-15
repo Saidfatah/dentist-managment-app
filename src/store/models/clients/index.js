@@ -1,5 +1,9 @@
 // import {fetchClients,fetchClient,addClient} from 'db'
-import { clientSchema, sessionSchema, thootNumbers } from "./client.schema";
+import {
+  clientSchema,
+  sessionSchema,
+  appointmentSchema,
+} from "./client.schema";
 import {
   fetchClientsFromDb,
   updateClientInDb,
@@ -12,11 +16,21 @@ const model = {
     clientsVisitingToday: [],
     clientsVisitingTodayCount: 0,
     visitedClient: undefined,
+    submitStatus: "SUBMIT_READY", // SUBMIT_PROGRESS SUBMIT_SUCCESS SUBMIT_ERROR
   },
   reducers: {
     addedClient: (state, clients) => ({
       ...state,
       clients,
+      submitStatus: "SUBMIT_SUCCESS",
+    }),
+    closedCreateNewClientModal: (state, args) => ({
+      ...state,
+      submitStatus: "SUBMIT_READY",
+    }),
+    startedAddingClient: (state, args) => ({
+      ...state,
+      submitStatus: "SUBMIT_PROGRESS",
     }),
     addedSession: (state, { clients }) => ({
       ...state,
@@ -39,15 +53,6 @@ const model = {
   effects: (dispatch) => ({
     fetchClients(field, state) {
       try {
-        const session = sessionSchema(
-          thootNumbers[0],
-          "intevention",
-          1000,
-          500,
-          500
-        );
-
-        const client = clientSchema("said", "fatah", "CINO9809", [session]);
         const clients = fetchClientsFromDb();
         dispatch.clients.fetchedClients({ clients });
         // dispatch.clients.fetchTodaysClients({clients})
@@ -112,22 +117,46 @@ const model = {
         console.log(error);
       }
     },
-    addNewclient(form, state) {
-      console.log(form);
-      const { firstName, lastName, age, phone, profession, address, CIN } =
-        form;
-      const newClient = clientSchema(
-        firstName,
-        lastName,
-        age,
-        phone,
-        profession,
-        address,
-        CIN
-      );
-      const clients = state.clients.clients;
-      addClientToDb([...clients, newClient]);
-      dispatch.clients.addedClient([...clients, newClient]);
+    addNewclient(formData, state) {
+      // create new appointment
+      // create new client and set its appointment
+      try {
+        if (!formData) throw new Error("formData wasn't passed");
+        dispatch.clients.startedAddingClient();
+        const {
+          appointmentDate,
+          firstName,
+          lastName,
+          age,
+          phone,
+          profession,
+          address,
+        } = formData;
+        const firstAppointment = appointmentSchema(appointmentDate);
+
+        const newClient = clientSchema(
+          firstName,
+          lastName,
+          age,
+          phone,
+          profession,
+          address,
+          undefined,
+          [],
+          undefined,
+          firstAppointment
+        );
+
+        const clients = state.clients.clients;
+
+        setTimeout(() => {
+          addClientToDb([...clients, newClient]);
+          dispatch.clients.addedClient([...clients, newClient]);
+        }, 2000);
+        //AddtoFirebase asyncly
+      } catch (error) {
+        console.log("addNewclient", error);
+      }
     },
   }),
 };

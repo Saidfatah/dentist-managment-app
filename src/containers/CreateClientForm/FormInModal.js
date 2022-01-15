@@ -5,7 +5,7 @@ import { MODAL_WIDTH } from "./constants";
 
 const FormInModal = () => {
   return (
-    <Modal width={MODAL_WIDTH} height={"75%"}>
+    <Modal width={MODAL_WIDTH} height={"80%"}>
       <CreateClientForm />
     </Modal>
   );

@@ -1,21 +1,18 @@
 import * as React from "react";
-import {
-  Routes,
-  Route,
-} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
-import ClientAffiche from './ClientAffiche'
-import Regsiter from './Regsiter'
-import Dashboard from './Dashboard'
+import ClientAffiche from "./ClientAffiche";
+import Regsiter from "./Regsiter";
+import Dashboard from "./Dashboard";
 
-const RoutesInit=()=> {
+const RoutesInit = () => {
   return (
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route  path="clientPage/:id" element={<ClientAffiche />} />
-        <Route  path="register" element={<Regsiter />} />
-      </Routes>
+    <Routes>
+      <Route path="/" element={<Dashboard />} />
+      <Route path="client/:id" element={<ClientAffiche />} />
+      <Route path="register" element={<Regsiter />} />
+    </Routes>
   );
-}
+};
 
-export default RoutesInit ;
+export default RoutesInit;

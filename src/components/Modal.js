@@ -1,18 +1,20 @@
 import React from "react";
 import Modal from "react-modal";
 import { connect } from "react-redux";
-
+import Icon from "./Icon";
+import getConfirmation from "../utils/getConfirmation";
 const ModalComponent = ({
   children,
   modalIsOpen,
   hideModal,
   width,
   height,
+  title,
 }) => {
   const afterOpenModal = () => {};
 
   const closeModal = () => {
-    hideModal();
+    if (getConfirmation()) hideModal();
   };
 
   return (
@@ -35,6 +37,12 @@ const ModalComponent = ({
       }}
       contentLabel="Ajouter un rendevous"
     >
+      <div className="flex justify-between ">
+        {title || <div></div>}
+        <button onClick={closeModal}>
+          <Icon name="CLOSE" size={25} classes="text-black cursor-pointer" />
+        </button>
+      </div>
       {children}
     </Modal>
   );

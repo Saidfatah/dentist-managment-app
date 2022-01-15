@@ -1,11 +1,14 @@
 import React from "react";
 import InputGroup from "./InputGroup";
-const FormStep1 = (setFormField, formData) => {
+const FormStep1 = ({ setFormField, formData }) => {
   const { firstName, lastName, age, phone, profession, address, CIN } =
     formData;
 
   return (
-    <div>
+    <div className="p2">
+      <h1 className="font-bold uppercase">
+        entrez les informations de patient
+      </h1>
       <InputGroup
         value={lastName}
         field={"lastName"}
