@@ -7,14 +7,19 @@ const CancelButton = ({
   type,
   classes1 = "",
   classes2 = "",
+  color = "text-gray-500",
 }) => {
   return (
     <button
       type={type || "button"}
-      className={"p-2 bg-gray-400 rounded-sm " + classes1}
+      className={"p-2 rounded-sm " + classes1}
       onClick={onClick}
     >
-      <div className={"flex justify-between items-center " + classes2}>
+      <div
+        className={
+          "flex justify-between items-center " + classes2 + " " + color
+        }
+      >
         {title ? title : children}
       </div>
     </button>

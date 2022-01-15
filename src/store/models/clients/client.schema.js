@@ -17,6 +17,35 @@ export const sessionSchema = (
     reste: reste || 0,
   };
 };
+export const appointmentSchema = (date) => {
+  return {
+    date,
+  };
+};
+
+const getPropertyIfHas = (object, property) => {
+  if (!object) return undefined;
+  if (object.hasOwnProperty(property)) return object.property;
+  return undefined;
+};
+
+export const personalInfoSchema = (
+  firstName,
+  lastName,
+  phone,
+  age,
+  profession,
+  address,
+  CIN
+) => ({
+  firstName,
+  lastName,
+  phone: phone || "NOT_SET",
+  age,
+  profession,
+  address,
+  CIN,
+});
 
 export const clientSchema = (
   firstName,
@@ -27,36 +56,33 @@ export const clientSchema = (
   profession,
   address,
   sessions,
-  {
-    healthProblems,
-    ansthesia,
-    péncilineAllergie,
-    bleeding,
-    bregnnant,
-    observation,
-  }
+  _extraInfo,
+  firstAppointment
 ) => {
   return {
     id: v4(),
-    firstName,
-    lastName,
-    phone: phone || "NOT_SET",
-    age,
-    profession,
-    address,
-    CIN,
+    perosnalInfo: personalInfoSchema(
+      firstName,
+      lastName,
+      phone,
+      age,
+      profession,
+      address,
+      CIN
+    ),
     extraInfo: {
-      healthProblems: healthProblems || "",
-      ansthesia: ansthesia || "",
-      péncilineAllergie: péncilineAllergie || false,
-      bleeding: bleeding || false,
-      bregnnant: bregnnant || false,
-      observation: observation || "false",
+      healthProblems: getPropertyIfHas(_extraInfo, "healthProblems") || "",
+      anesthesia: getPropertyIfHas(_extraInfo, "anesthesia") || false,
+      péncilineAllergie:
+        getPropertyIfHas(_extraInfo, "péncilineAllergie") || false,
+      bleeding: getPropertyIfHas(_extraInfo, "bleeding") || false,
+      pregnant: getPropertyIfHas(_extraInfo, "pregnant") || false,
+      observation: getPropertyIfHas(_extraInfo, "observation") || "",
     },
     initialBalance: 0,
     sessions: sessions || [],
     created_at: new Date(), //use firestor's date
     updated_at: new Date(), //use firestor's date
-    appointments: [],
+    appointments: (firstAppointment && [firstAppointment]) || [],
   };
 };
