@@ -1,4 +1,7 @@
+// map firestore date to js date
 // import {fetchClients,fetchClient,addClient} from 'db'
+import { isVisitingToday } from "./utils";
+
 import {
   clientSchema,
   sessionSchema,
@@ -40,6 +43,9 @@ const model = {
       ...state,
       clients,
     }),
+    // [TODO_BEKRINE]
+    // add reducer called confirmedClientAttendence
+    // that updates clientsVisitingToday
     fetchedTodaysClients: (state, { clientsVisitingToday }) => ({
       ...state,
       clientsVisitingToday,
@@ -51,11 +57,12 @@ const model = {
     }),
   },
   effects: (dispatch) => ({
+    //QUERIES
     fetchClients(field, state) {
       try {
         const clients = fetchClientsFromDb();
         dispatch.clients.fetchedClients({ clients });
-        // dispatch.clients.fetchTodaysClients({clients})
+        dispatch.clients.getTodaysClients({ clients });
       } catch (error) {
         console.log("error in :fetchClients ");
         console.log(error);
@@ -63,13 +70,20 @@ const model = {
     },
     getTodaysClients({ clients }, state) {
       try {
-        // const checkIfHasSession=(c)=>{
-        //     const hasSession = true
+        if (clients && clients.length) {
+          const todaysVisitingClients = clients.filter(isVisitingToday);
 
-        //     return true
-        // }
-        // const todaysClients=clients.filter(checkIfHasSession)
-        dispatch.clients.fetchedTodaysClients({ clientsVisitingToday: [] });
+          //[TODO_BEKRINE] make sure this returns the right users
+          console.log(todaysVisitingClients);
+          //[TODO_BEKRINE] also before passing todaysVisitingClients to the reducer
+          //add this field "hasAttended:false" to all client entires
+          //Method1 : either by forEach then do client.hasAttended=false
+          //Method2 : or by mapping and destruturing the client object then {...client,hasAttended:false}
+
+          dispatch.clients.fetchedTodaysClients({
+            clientsVisitingToday: [...todaysVisitingClients],
+          });
+        }
       } catch (error) {
         console.log("error in :getTodaysClients ");
         console.log(error);
@@ -87,6 +101,18 @@ const model = {
         console.log(error);
       }
     },
+
+    //MUTATIONS
+    //[TODO_BEKRINE] add an effect called confirmClientAttendence
+    // this effect recieves the client id
+    // STEPS
+    // STEP 1 - update the target client's hasAttended to true
+    // the target client  in this case exists in in state.clients.clientsVisitingToday
+    // STEP 2 - also update the target client's appointments array  set the last appointment.attended to true
+    // the target client  in this case exists in in state.clients.clients
+    // why the last element ?  because logically its todays appointment is the last item in client.appointments array
+    // then update the local storage by calling updateClientInDb(clients)
+
     addsession(form, state) {
       try {
         const { price, reste, received, intervention, toothNumber } = form;

@@ -1,13 +1,18 @@
-const format=item=>item<10?`0${item}`:item
-const dateFormater =(date)=>{
-    const year=date.getFullYear()
-    let month=date.getMonth()+1
+const format = (item) => (item < 10 ? `0${item}` : item);
 
-    month=format(month)
-    let day=date.getDate()
-    day=format(day)
+export const getMonth = (date) => date.getMonth() + 1;
+export const getDay = (date) => date.getDate();
+export const getyear = (date) => date.getFullYear();
 
-    return `${day}/${month}/${year}`
-}
+const dateFormater = (date) => {
+  const year = getyear(date);
+  let month = getMonth(date);
+  let day = getDay(date);
 
-export default dateFormater
+  month = format(month);
+  day = format(day);
+
+  return `${day}/${month}/${year}`;
+};
+
+export default dateFormater;

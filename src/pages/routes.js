@@ -9,7 +9,7 @@ const RoutesInit = () => {
   return (
     <Routes>
       <Route path="/" element={<Dashboard />} />
-      <Route path="client/:id" element={<ClientAffiche />} />
+      <Route path="clientPage/:id" element={<ClientAffiche />} />
       <Route path="register" element={<Regsiter />} />
     </Routes>
   );

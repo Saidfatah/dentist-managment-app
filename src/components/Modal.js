@@ -10,10 +10,13 @@ const ModalComponent = ({
   width,
   height,
   title,
+  submitStatus,
 }) => {
   const afterOpenModal = () => {};
 
   const closeModal = () => {
+    if (submitStatus === "SUBMIT_SUCCESS") return
+     hideModal();
     if (getConfirmation()) hideModal();
   };
 
@@ -50,6 +53,7 @@ const ModalComponent = ({
 export default connect(
   (state) => ({
     modalIsOpen: state.UI.modalIsOpen,
+    submitStatus: state.clients.submitStatus,
   }),
   (dispatch) => ({
     hideModal: dispatch.UI.hideModal,

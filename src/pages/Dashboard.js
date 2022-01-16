@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import DashboardContainer from "../containers/Dashboard/index";
+import { connect } from "react-redux";
 
-const Dashboard = () => {
-    return (
-        <div>
-            Dashboard
-        </div>
-    )
-}
+const Dashboard = ({ fetchClients }) => {
+  useEffect(() => {
+    fetchClients();
+  }, []);
 
-export default Dashboard
+  return (
+    <div>
+      <DashboardContainer />
+    </div>
+  );
+};
+
+export default connect(null, (dispatch) => ({
+  fetchClients: dispatch.clients.fetchClients,
+}))(Dashboard);

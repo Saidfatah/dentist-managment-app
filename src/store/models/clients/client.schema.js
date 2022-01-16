@@ -17,6 +17,8 @@ export const sessionSchema = (
     reste: reste || 0,
   };
 };
+
+//[TODO_BEKRINE]add attended(true/false) field here
 export const appointmentSchema = (date) => {
   return {
     date,
@@ -36,6 +38,7 @@ export const personalInfoSchema = (
   age,
   profession,
   address,
+  isOrthoClient,
   CIN
 ) => ({
   firstName,
@@ -45,6 +48,7 @@ export const personalInfoSchema = (
   profession,
   address,
   CIN,
+  isOrthoClient: isOrthoClient || false,
 });
 
 export const clientSchema = (
@@ -57,7 +61,8 @@ export const clientSchema = (
   address,
   sessions,
   _extraInfo,
-  firstAppointment
+  firstAppointment,
+  isOrthoClient
 ) => {
   return {
     id: v4(),
@@ -68,6 +73,7 @@ export const clientSchema = (
       age,
       profession,
       address,
+      isOrthoClient,
       CIN
     ),
     extraInfo: {
