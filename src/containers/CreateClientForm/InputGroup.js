@@ -1,5 +1,4 @@
 import React from "react";
-import { Error } from "../../components";
 
 const InputGroup = ({
   field,
@@ -29,7 +28,7 @@ const InputGroup = ({
   `;
 
   let input;
-  if (!type)
+  if (!type) {
     input = (
       <input
         value={value}
@@ -39,6 +38,7 @@ const InputGroup = ({
         className={inputClasses}
       />
     );
+  }
   if (type === "number") {
     input = (
       <input
@@ -106,6 +106,7 @@ const InputGroup = ({
       />
     );
   }
+
   return (
     <div className={inputGorupClasses}>
       <label className={labelClasses} htmlFor={field}>

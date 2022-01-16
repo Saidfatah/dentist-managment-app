@@ -31,10 +31,11 @@ const AddClient = ({ addNewclient, submitStatus }) => {
     opacity: step === 1 ? 1 : 0,
   });
   const setFormField = (field, subField) => (e) => {
+    let value = e.target.value;
+    if (value === "true" || value === "false")
+      value = parseStringToBoolean(e.target.value);
+
     if (subField) {
-      let value = e.target.value;
-      if (value === "true" || value === "false")
-        value = parseStringToBoolean(e.target.value);
       const extraInfo = formData.extraInfo;
       extraInfo[subField] = value;
       return setformData({
@@ -42,7 +43,7 @@ const AddClient = ({ addNewclient, submitStatus }) => {
         extraInfo: { ...extraInfo },
       });
     }
-    return setformData({ ...formData, [field]: e.target.value });
+    return setformData({ ...formData, [field]: value });
   };
 
   const onSubmit = (e) => {
@@ -83,7 +84,7 @@ const AddClient = ({ addNewclient, submitStatus }) => {
     );
   };
 
-  const FormContent = () => {
+  const formContent = () => {
     switch (submitStatus) {
       case "SUBMIT_SUCCESS":
         return <Success text="added client sucessfully" />;
@@ -138,7 +139,7 @@ const AddClient = ({ addNewclient, submitStatus }) => {
       onSubmit={onSubmit}
       className=" max-w-5xl h-full flex flex-col  justify-between  "
     >
-      <FormContent />
+      {formContent()}
     </form>
   );
 };

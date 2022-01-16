@@ -1,8 +1,15 @@
 import React from "react";
 import InputGroup from "./InputGroup";
 const FormStep1 = ({ setFormField, formData }) => {
-  const { firstName, lastName, age, phone, profession, address, CIN } =
-    formData;
+  const {
+    firstName,
+    lastName,
+    age,
+    phone,
+    profession,
+    address,
+    isOrthoClient,
+  } = formData;
 
   return (
     <div className="p2">
@@ -46,6 +53,13 @@ const FormStep1 = ({ setFormField, formData }) => {
         value={phone}
         field={"phone"}
         placeHolder={"tele"}
+      />
+      <InputGroup
+        setFormField={setFormField}
+        value={isOrthoClient}
+        type="checkbox"
+        field={"isOrthoClient"}
+        placeHolder={"ortho"}
       />
     </div>
   );
