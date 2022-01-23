@@ -1,6 +1,6 @@
+import { formatDate } from "../../../utils/formatDate";
 import { v4 } from "uuid";
 export const thootNumbers = ["H1", "H2", "H3", "H4"];
-
 export const sessionSchema = (
   toothNumber,
   intervention,
@@ -9,7 +9,7 @@ export const sessionSchema = (
   reste
 ) => {
   return {
-    date: new Date(),
+    date: formatDate(new Date(), "_"), //store as strung following DD_MM_YYYY
     toothNumber: toothNumber || "NOT_ASSIGNED",
     intervention: intervention || "NOT_ASSIGNED",
     price: price || 0,
@@ -19,9 +19,12 @@ export const sessionSchema = (
 };
 
 //[TODO_BEKRINE]add attended(true/false) field here
+// db.collection('chatDocs').where("chatMembers", "array-contains", { userId: "xyz", userName: "abc" });
 export const appointmentSchema = (date) => {
   return {
-    date,
+    date, // store as strung following DD_MM_YYYY
+    control: false,
+    attended: false,
   };
 };
 
@@ -52,6 +55,7 @@ export const personalInfoSchema = (
 });
 
 export const clientSchema = (
+  reference,
   firstName,
   lastName,
   CIN,
@@ -62,9 +66,11 @@ export const clientSchema = (
   sessions,
   _extraInfo,
   firstAppointment,
-  isOrthoClient
+  isOrthoClient,
+  firstPayment
 ) => {
   return {
+    reference,
     id: v4(),
     perosnalInfo: personalInfoSchema(
       firstName,
@@ -87,8 +93,9 @@ export const clientSchema = (
     },
     initialBalance: 0,
     sessions: sessions || [],
-    created_at: new Date(), //use firestor's date
-    updated_at: new Date(), //use firestor's date
+    created_at: formatDate(new Date(), "_"), //stored as DD_MM_YYYY
+    updated_at: formatDate(new Date(), "_"), //use firestor's date
     appointments: (firstAppointment && [firstAppointment]) || [],
+    payments: (firstPayment && [firstPayment]) || [],
   };
 };

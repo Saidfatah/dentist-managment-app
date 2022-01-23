@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import RegisterContainer from "../containers/Register";
 
-const Regsiter = () => {
-    return (
-        <div>
-            register
-        </div>
-    )
-}
+const Regsiter = ({ getPayments }) => {
+  useEffect(() => {
+    getPayments();
+  }, []);
+  return (
+    <div>
+      <RegisterContainer />
+    </div>
+  );
+};
 
-export default Regsiter
+export default connect(null, (dispatch) => ({
+  getPayments: dispatch.register.getPayments,
+}))(Regsiter);

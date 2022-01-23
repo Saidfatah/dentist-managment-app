@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { isNormalClient } from "../../store/models/clients/utils";
+import { isNormalClient } from "../../store/models/clients/client.utils";
 const NormalClients = ({ clientsVisitingToday }) => {
   const [normalClientsVisitingToday, setNormalClientsVisitingToday] = useState([
     ...clientsVisitingToday.filter(isNormalClient),

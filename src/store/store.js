@@ -1,21 +1,20 @@
-import {init} from '@rematch/core'
-import clients from './models/clients'
-import appointments from './models/appointments'
-import register from './models/register'
-import auth from './models/auth'
-import UI from './models/UI'
+import { init } from "@rematch/core";
+import clients from "./models/clients/client.index";
+import appointments from "./models/appointments/appointment.index";
+import register from "./models/register/register.index";
+import auth from "./models/auth/auth.index";
+import UI from "./models/UI/ui.index";
 
-const models={
+const models = {
   auth,
   clients,
   appointments,
   register,
-  UI
-}
+  UI,
+};
 
-const store=init({
-    models,
-})
+const store = init({
+  models,
+});
 
-
-export default store 
+export default store;

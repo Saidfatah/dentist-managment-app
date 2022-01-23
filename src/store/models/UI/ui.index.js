@@ -1,16 +1,21 @@
 const model = {
   state: {
     visible: false,
-    modalIsOpen: false,
+    appointmentModalIsOpen: false,
+    paymentModalIsOpen: false,
   },
   reducers: {
     toggledSideBarVisible: (state, visible) => ({
       ...state,
       visible,
     }),
-    toggledModalIsOpen: (state, modalIsOpen) => ({
+    toggledAppointmentModalIsOpen: (state, appointmentModalIsOpen) => ({
       ...state,
-      modalIsOpen,
+      appointmentModalIsOpen,
+    }),
+    toggledPaymentModalIsOpen: (state, paymentModalIsOpen) => ({
+      ...state,
+      paymentModalIsOpen,
     }),
   },
   effects: (dispatch) => ({
@@ -32,16 +37,20 @@ const model = {
     },
     hideModal() {
       try {
-        dispatch.UI.toggledModalIsOpen(false);
+        dispatch.UI.toggledAppointmentModalIsOpen(false);
+        dispatch.UI.toggledPaymentModalIsOpen(false);
         dispatch.clients.closedCreateNewClientModal();
       } catch (error) {
         console.log("------hideSideBar------");
         console.log(error);
       }
     },
-    showModal() {
+    showModal({ modal_id }) {
       try {
-        dispatch.UI.toggledModalIsOpen(true);
+        if (modal_id === "ADD_PAYMENT_MODAL")
+          dispatch.UI.toggledPaymentModalIsOpen(true);
+        if (modal_id === "ADD_APPOINTMENT_MODAL")
+          dispatch.UI.toggledAppointmentModalIsOpen(true);
       } catch (error) {
         console.log("------hideSideBar------");
         console.log(error);

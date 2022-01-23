@@ -1,11 +1,11 @@
 import React from "react";
 import Modal from "../../components/Modal";
 import CreateClientForm from "./createClientForm";
-import { MODAL_WIDTH } from "./constants";
+import { MODAL_WIDTH } from "../../utils/constants";
 
 const FormInModal = () => {
   return (
-    <Modal width={MODAL_WIDTH} height={"80%"}>
+    <Modal id="ADD_APPOINTMENT_MODAL" width={MODAL_WIDTH} height={"80%"}>
       <CreateClientForm />
     </Modal>
   );

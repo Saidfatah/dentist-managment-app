@@ -1,7 +1,7 @@
 import React from "react";
-import { colors, fontSizes } from "../utils/values";
-import ActionButton from "./buttons/ActionButton";
-import Icon from "./Icon";
+import { colors, fontSizes } from "../../utils/values";
+import ActionButton from "../../components/buttons/ActionButton";
+import Icon from "../../components/Icon";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -32,7 +32,14 @@ const NavBarLinks = ({ direction, hideSideBar, showModal }) => {
       </li>
       <ActionButton>
         <Icon name="ADD" classes="mr-2" />
-        <p onClick={() => showModal()} className={LinkClasses}>
+        <p
+          onClick={() =>
+            showModal({
+              modal_id: "ADD_APPOINTMENT_MODAL",
+            })
+          }
+          className={LinkClasses}
+        >
           ajouter un rendez vous
         </p>
       </ActionButton>

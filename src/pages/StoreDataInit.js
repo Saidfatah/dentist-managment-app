@@ -1,20 +1,13 @@
-import React,{useEffect} from 'react'
-import { connect} from 'react-redux'
-const StoreDataInit=({fetchClients,children})=> {
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+const StoreDataInit = ({ getTodaysClients, children }) => {
   useEffect(() => {
-    fetchClients()
-  }, [fetchClients])
+    getTodaysClients();
+  }, [getTodaysClients]);
 
-  return (
-    <div>
-        {children}
-    </div>
-  );
-}
+  return <div>{children}</div>;
+};
 
-export default connect(
-  undefined,
-  dispatch=>({
-    fetchClients:dispatch.clients.fetchClients
-  })
-  )(StoreDataInit);
+export default connect(undefined, (dispatch) => ({
+  getTodaysClients: dispatch.clients.getTodaysClients,
+}))(StoreDataInit);

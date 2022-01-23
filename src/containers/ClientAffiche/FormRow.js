@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import dateFormater from "../../utils/formatDate";
 import { sessionSchema } from "../../store/models/clients/client.schema";
 import { connect } from "react-redux";
 import { thootNumbers } from "../../store/models/clients/client.schema.js";
@@ -42,11 +41,7 @@ const FormRow = ({ addsession }) => {
     <>
       <tr>
         <td className="y-2 bg-white text-sm">
-          <input
-            value={dateFormater(date)}
-            readOnly
-            className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-          />
+          <p>{date}</p>
         </td>
         <td className="y-2 bg-white text-sm">
           <DropdawnList value={toothNumber} />

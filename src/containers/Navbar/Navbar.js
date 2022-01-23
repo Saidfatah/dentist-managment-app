@@ -1,13 +1,13 @@
 import React from "react";
-import Icon from "./Icon";
+import Icon from "../../components/Icon";
 import { connect } from "react-redux";
-import { fontWeights } from "../utils/values";
+import { fontWeights } from "../../utils/values";
 import NavBarLinks from "./NavBarLinks";
 
 const isMobile = document.body.offsetWidth <= 766;
 const Navbar = ({ showSideBar }) => {
   return (
-    <nav className="bg-white border-gray-200 text px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800">
+    <nav className="bg-white border-gray-200 text px-2 sm:px-4 py-2.5 rounded ">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
         <div className="hidden w-full md:block md:w-auto" id="mobile-menu">
           <NavBarLinks direction="col-row" />

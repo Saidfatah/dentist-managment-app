@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import FormInfoStep from "./FormInfoStep";
 import FormDateStep from "./FormDateStep";
 import { useSpring, animated } from "react-spring";
-import { MODAL_WIDTH } from "./constants";
+import { MODAL_WIDTH } from "../../utils/constants";
 import {
   ActionButton,
   CancelButton,
