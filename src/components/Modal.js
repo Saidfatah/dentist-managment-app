@@ -5,24 +5,30 @@ import Icon from "./Icon";
 import getConfirmation from "../utils/getConfirmation";
 const ModalComponent = ({
   children,
-  modalIsOpen,
+  appointmentModalIsOpen,
+  paymentModalIsOpen,
   hideModal,
   width,
   height,
   title,
   submitStatus,
+  id,
 }) => {
   const afterOpenModal = () => {};
 
   const closeModal = () => {
-    if (submitStatus === "SUBMIT_SUCCESS") return
-     hideModal();
+    if (submitStatus === "SUBMIT_SUCCESS") return;
+    hideModal();
     if (getConfirmation()) hideModal();
   };
 
+  const isOpen = () => {
+    if (id === "ADD_PAYMENT_MODAL") return paymentModalIsOpen;
+    if (id === "ADD_APPOINTMENT_MODAL") return appointmentModalIsOpen;
+  };
   return (
     <Modal
-      isOpen={modalIsOpen}
+      isOpen={isOpen()}
       onAfterOpen={afterOpenModal}
       onRequestClose={closeModal}
       style={{
@@ -52,7 +58,8 @@ const ModalComponent = ({
 };
 export default connect(
   (state) => ({
-    modalIsOpen: state.UI.modalIsOpen,
+    appointmentModalIsOpen: state.UI.appointmentModalIsOpen,
+    paymentModalIsOpen: state.UI.paymentModalIsOpen,
     submitStatus: state.clients.submitStatus,
   }),
   (dispatch) => ({

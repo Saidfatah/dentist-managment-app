@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { isOrthoClient } from "../../store/models/clients/utils";
+import { isOrthoClient } from "../../store/models/clients/client.utils";
 
 const OrthoClients = ({ clientsVisitingToday }) => {
   const [orthoClientsVisitingToday, setOrthoClientsVisitingToday] = useState([
