@@ -7,6 +7,10 @@ import { BrowserRouter } from "react-router-dom";
 import Modal from "react-modal";
 Modal.setAppElement("#root");
 
+if (module.hot) {
+  module.hot.accept();
+}
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>

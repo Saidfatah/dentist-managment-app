@@ -1,10 +1,13 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 
 const DashboardContainer = ({ clientsVisitingToday }) => {
-  // let { pathname, pathnameBase } = useMatch({end});
-  // console.log({ pathname, pathnameBase });
+  const navigation = useNavigate();
+
+  useEffect(() => {
+    navigation("/NormalClients");
+  }, []);
 
   const Tabs = () => {
     const LinkClasses = `
@@ -24,11 +27,11 @@ const DashboardContainer = ({ clientsVisitingToday }) => {
       `;
     return (
       <ul
-        class="nav nav-tabs flex flex-col md:flex-row flex-wrap list-none border-b-0 pl-0 mb-4"
+        className="nav nav-tabs flex flex-col md:flex-row flex-wrap list-none border-b-0 pl-0 mb-4"
         id="tabs-tab"
         role="tablist"
       >
-        <li role="presentation" >
+        <li role="presentation">
           <Link to="/NormalClients" className={LinkClasses}>
             Clients normal
           </Link>
@@ -41,10 +44,10 @@ const DashboardContainer = ({ clientsVisitingToday }) => {
       </ul>
     );
   };
-  // [TODO_BEKRINE] when you're done with other tasks figure out how to do nested routing in v6
+
   return (
     <div>
-      <Tabs/>
+      <Tabs />
     </div>
   );
 };

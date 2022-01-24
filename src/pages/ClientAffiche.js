@@ -1,31 +1,27 @@
-import React,{useEffect} from 'react'
-import ClientAfficheContainer from '../containers/ClientAffiche'
-import {useParams} from "react-router-dom";
-import { connect } from 'react-redux';
+import React, { useEffect } from "react";
+import ClientAfficheContainer from "../containers/ClientAffiche";
+import { useNavigate, useParams } from "react-router-dom";
+import { connect } from "react-redux";
 
-const ClientAffiche = ({client,getClientById}) => {
-    let { id } = useParams();
+const ClientAffiche = ({ client, getClientById }) => {
+  let { id } = useParams();
 
-    useEffect(() => {
-        setTimeout(() => {
-            
-            getClientById({id})
-        }, 2000);
-    }, [getClientById])
+  useEffect(() => {
+    getClientById({ id });
+  }, []);
 
-    return (
-        <div>
-           <ClientAfficheContainer client={client}  />
-        </div>
-    )
-}
+  return (
+    <div>
+      <ClientAfficheContainer client={client} />
+    </div>
+  );
+};
 
 export default connect(
-    (state)=>({
-       client:state.clients.visitedClient
-    }),
-    (dispatch)=>({
-        getClientById:dispatch.clients.getClientById,
-    }),
-
-)(ClientAffiche)
+  (state) => ({
+    client: state.clients.visitedClient,
+  }),
+  (dispatch) => ({
+    getClientById: dispatch.clients.getClientById,
+  })
+)(ClientAffiche);

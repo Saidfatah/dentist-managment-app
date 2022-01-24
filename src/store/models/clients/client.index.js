@@ -54,9 +54,9 @@ const model = {
       ...state,
       submitStatus: "SUBMIT_PROGRESS",
     }),
-    addedSession: (state, { clients }) => ({
+    addedSession: (state, { clientsVisitingToday }) => ({
       ...state,
-      clients: [...clients],
+      clientsVisitingToday: [...clientsVisitingToday],
     }),
     // [TODO_BEKRINE]
     // add reducer called confirmedClientAttendence
@@ -115,6 +115,8 @@ const model = {
         const clientsVisitingToday = state.clients.clientsVisitingToday;
 
         const targetClient = clientsVisitingToday.filter((c) => c.id === id)[0];
+        console.log({ id });
+        console.log(targetClient);
         dispatch.clients.fetchedClientByID({ visitedClient: targetClient });
       } catch (error) {
         console.log("error in : getClientById");
@@ -220,7 +222,7 @@ const model = {
           //const targetClientIndex = clients.indexOf(targetClient)
         }
       } catch (error) {
-        console.log("error in : getClientById");
+        console.log("error in : addsession");
         console.log(error);
       }
     },
@@ -237,8 +239,9 @@ const model = {
           age,
           phone,
           profession,
+          CIN,
           address,
-          isOrthoClient
+          isOrthoClient,
         } = formData;
         const firstAppointment = appointmentSchema(appointmentDate);
 
@@ -252,15 +255,16 @@ const model = {
           newClientRef,
           firstName,
           lastName,
-          age,
+          CIN,
           phone,
+          age,
           profession,
           address,
-          undefined,
           [],
           undefined,
           firstAppointment,
           isOrthoClient,
+          undefined
         );
 
         const clientsVisitingToday = state.clients.clientsVisitingToday;
