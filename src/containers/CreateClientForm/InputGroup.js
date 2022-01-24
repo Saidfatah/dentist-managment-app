@@ -66,7 +66,7 @@ const InputGroup = ({
             type="radio"
             value={true}
             id="flexCheckDefault"
-            name={subField}
+            name={field}
             checked={value}
             onChange={setFormField(field, subField)}
           />
@@ -84,14 +84,14 @@ const InputGroup = ({
             value={false}
             onChange={setFormField(field, subField)}
             id="flexCheckChecked"
-            name={subField}
+            name={field}
             checked={!value}
           />
           <label
             className="form-check-label inline-block text-gray-800"
             for="flexCheckChecked"
           >
-            no
+           Non 
           </label>
         </div>
       </div>
