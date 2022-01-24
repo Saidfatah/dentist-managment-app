@@ -17,7 +17,7 @@ import { parseStringToBoolean } from "./utils";
 const AddClient = ({ addNewclient, submitStatus }) => {
   const [step, setStep] = useState(0);
   const [formData, setformData] = useState({
-    ...personalInfoSchema("", "", "", "", "", ""),
+    ...personalInfoSchema("", "", "", "", "", "", false, ""),
     appointmentDate: new Date(),
   });
 

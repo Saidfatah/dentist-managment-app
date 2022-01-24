@@ -33,10 +33,7 @@ const Table = ({ sessions }) => {
         {sessions.map((session, index) => (
           <tr key={index}>
             {Array.from(Object.keys(session)).map((key, index) => (
-              <td
-                key={index}
-                className="y-2  px-5 py-3 text-left bg-white text-sm"
-              >
+              <td key={index} className=" px-5 py-3 text-left bg-white text-sm">
                 <p className="text-gray-900 whitespace-no-wrap">
                   {session[key]}
                 </p>
@@ -50,7 +47,7 @@ const Table = ({ sessions }) => {
   };
 
   return (
-    <table className="w-full">
+    <table className="w-full shadow-xl rounded-lg overflow-hidden border-2   border-gray-200">
       <TableHead />
       <TableBody />
     </table>

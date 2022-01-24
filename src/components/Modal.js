@@ -17,8 +17,8 @@ const ModalComponent = ({
   const afterOpenModal = () => {};
 
   const closeModal = () => {
-    if (submitStatus === "SUBMIT_SUCCESS") return;
-    hideModal();
+    if (submitStatus === "SUBMIT_SUCCESS") return hideModal();
+
     if (getConfirmation()) hideModal();
   };
 

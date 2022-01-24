@@ -10,9 +10,9 @@ import OrthoClients from "../containers/Dashboard/OrthoClients";
 const RoutesInit = () => {
   return (
     <Routes>
-      <Route path="/" element={<Dashboard />} >
-      <Route path="NormalClients" element={<NormalClients/>} />
-      <Route path="OrthoClients" element={<OrthoClients/>}/>
+      <Route path="/" element={<Dashboard />}>
+        <Route path="NormalClients" element={<NormalClients />} />
+        <Route path="OrthoClients" element={<OrthoClients />} />
       </Route>
       <Route path="clientPage/:id" element={<ClientAffiche />} />
       <Route path="register" element={<Regsiter />} />

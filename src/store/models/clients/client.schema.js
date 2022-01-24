@@ -10,8 +10,8 @@ export const sessionSchema = (
 ) => {
   return {
     date: formatDate(new Date(), "_"), //store as strung following DD_MM_YYYY
-    toothNumber: toothNumber || "NOT_ASSIGNED",
-    intervention: intervention || "NOT_ASSIGNED",
+    toothNumber: toothNumber,
+    intervention: intervention,
     price: price || 0,
     received: received || 0,
     reste: reste || 0,
@@ -46,7 +46,7 @@ export const personalInfoSchema = (
 ) => ({
   firstName,
   lastName,
-  phone: phone || "NOT_SET",
+  phone,
   age,
   profession,
   address,
