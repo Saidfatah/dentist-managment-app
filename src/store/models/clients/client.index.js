@@ -1,6 +1,6 @@
 // map firestore date to js date
 // import {fetchClients,fetchClient,addClient} from 'db'
-import { isVisitingToday } from "./client.utils";
+// import { isOrthoClient, isVisitingToday } from "./client.utils";
 import generateRefrence, {
   CLIENT_REF_PREFIX,
   REF_LENGTH,
@@ -238,6 +238,7 @@ const model = {
           phone,
           profession,
           address,
+          isOrthoClient
         } = formData;
         const firstAppointment = appointmentSchema(appointmentDate);
 
@@ -258,7 +259,8 @@ const model = {
           undefined,
           [],
           undefined,
-          firstAppointment
+          firstAppointment,
+          isOrthoClient,
         );
 
         const clientsVisitingToday = state.clients.clientsVisitingToday;

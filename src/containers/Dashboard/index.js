@@ -1,7 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import NormalClients from "./NormalClients";
-import OrthoClients from "./OrthoClients";
 import { connect } from "react-redux";
 
 const DashboardContainer = ({ clientsVisitingToday }) => {
@@ -30,13 +28,13 @@ const DashboardContainer = ({ clientsVisitingToday }) => {
         id="tabs-tab"
         role="tablist"
       >
-        <li role="presentation">
-          <Link to={"clients"} class={LinkClasses}>
+        <li role="presentation" >
+          <Link to="/NormalClients" className={LinkClasses}>
             Clients normal
           </Link>
         </li>
         <li role="presentation">
-          <Link to={"clients-ortho"} class={LinkClasses}>
+          <Link to="/OrthoClients" className={LinkClasses}>
             Clients ortho
           </Link>
         </li>
@@ -46,8 +44,7 @@ const DashboardContainer = ({ clientsVisitingToday }) => {
   // [TODO_BEKRINE] when you're done with other tasks figure out how to do nested routing in v6
   return (
     <div>
-      <NormalClients clientsVisitingToday={clientsVisitingToday} />
-      <OrthoClients clientsVisitingToday={clientsVisitingToday} />
+      <Tabs/>
     </div>
   );
 };
