@@ -58,9 +58,10 @@ const model = {
       ...state,
       clientsVisitingToday: [...clientsVisitingToday],
     }),
-    // [TODO_BEKRINE]
-    // add reducer called confirmedClientAttendence
-    // that updates clientsVisitingToday
+    confirmedClientAttendance: (state, { clientsVisitingToday }) => ({
+      ...state,
+      clientsVisitingToday: [...clientsVisitingToday],
+    }),
     fetchedTodaysClients: (state, { clientsVisitingToday }) => ({
       ...state,
       clientsVisitingToday,
@@ -100,9 +101,16 @@ const model = {
     //QUERIES
     getTodaysClients(args, state) {
       try {
+        // get
         const todaysVisitingClientsFromCache = fetchTodaysClientsFromCache();
 
-        const clientsVisitingToday = todaysVisitingClientsFromCache;
+        // move this to when we get
+        const clientsVisitingToday = todaysVisitingClientsFromCache.map((c) => {
+          const client = { ...c };
+
+          if (client.hasOwnProperty("hasAttended")) return client;
+          return { ...client, hasAttended: false };
+        });
 
         dispatch.clients.fetchedTodaysClients({ clientsVisitingToday });
       } catch (error) {
@@ -195,6 +203,54 @@ const model = {
     // why the last element ?  because logically its todays appointment is the last item in client.appointments array
     // then update the local storage by calling updateClientInDb(clients)
 
+    confirmClientAttendance({ id }, state) {
+      try {
+        const clientsVisitingToday = [...state.clients.clientsVisitingToday];
+        const targetClient = clientsVisitingToday.filter((c) => c.id === id)[0];
+        if (targetClient) {
+          targetClient.hasAttended = true;
+
+          updateClientInDb(clientsVisitingToday);
+
+          dispatch.clients.confirmedClientAttendance({ clientsVisitingToday });
+          // window.location.reload();
+        }
+      } catch (error) {
+        console.log("error in : confirmClientAttendance");
+        console.log(error);
+      }
+    },
+    addsession(form, state) {
+      try {
+        const { price, reste, received, intervention, toothNumber } = form;
+        const session = sessionSchema(
+          toothNumber,
+          intervention,
+          price,
+          received,
+          reste
+        );
+
+        //get client id
+        const { id } = state.clients.visitedClient;
+        const clientsVisitingToday = state.clients.clientsVisitingToday;
+        const targetClient = clientsVisitingToday.filter((c) => c.id === id)[0];
+        if (targetClient) {
+          targetClient.sessions.push(session);
+
+          updateClientInDb(clientsVisitingToday);
+
+          dispatch.clients.addedSession({ clientsVisitingToday });
+          dispatch.clients.getClientById({ id });
+          if (received > 0) dispatch.register.addPayment({ amount: received });
+
+          //const targetClientIndex = clients.indexOf(targetClient)
+        }
+      } catch (error) {
+        console.log("error in : addsession");
+        console.log(error);
+      }
+    },
     addsession(form, state) {
       try {
         const { price, reste, received, intervention, toothNumber } = form;

@@ -7,7 +7,7 @@ import NavBarLinks from "./NavBarLinks";
 const isMobile = document.body.offsetWidth <= 766;
 const Navbar = ({ showSideBar }) => {
   return (
-    <nav className="bg-white border-gray-200 text px-2 sm:px-4 py-2.5 rounded ">
+    <nav className="bg-white border-gray-200 text px-2 sm:px-4 py-2.5 rounded shadow-md ">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
         <div className="hidden w-full md:block md:w-auto" id="mobile-menu">
           <NavBarLinks direction="col-row" />

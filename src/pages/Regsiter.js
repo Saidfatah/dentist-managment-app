@@ -7,8 +7,10 @@ const Regsiter = ({ getPayments }) => {
     getPayments();
   }, []);
   return (
-    <div>
-      <RegisterContainer />
+    <div className="p-4">
+      <div className="shadow-sm rounded-lg overflow-hidden border-2   border-gray-200 ">
+        <RegisterContainer />
+      </div>
     </div>
   );
 };
