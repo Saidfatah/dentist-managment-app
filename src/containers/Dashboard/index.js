@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 
 const DashboardContainer = ({ clientsVisitingToday }) => {
   const navigation = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     navigation("/NormalClients");
@@ -20,33 +21,44 @@ const DashboardContainer = ({ clientsVisitingToday }) => {
         border-x-0 border-t-0 border-b-2 border-transparent
         px-6
         py-3
-        my-2
         hover:border-transparent hover:bg-gray-100
         focus:border-transparent
         active
       `;
+    const NormalClientsIsFocused =
+      location.pathname.indexOf("NormalClients") > -1;
     return (
-      <ul
-        className="nav nav-tabs flex flex-col md:flex-row flex-wrap list-none border-b-0 pl-0 mb-4"
-        id="tabs-tab"
-        role="tablist"
-      >
-        <li role="presentation">
+      <ul className="flex      mb-4">
+        <li>
           <Link to="/NormalClients" className={LinkClasses}>
             Clients normal
           </Link>
+          <div
+            style={{
+              opacity: NormalClientsIsFocused ? 1 : 0,
+              height: 3,
+            }}
+            className="w-full  bg-green-400 "
+          ></div>
         </li>
-        <li role="presentation">
+        <li>
           <Link to="/OrthoClients" className={LinkClasses}>
             Clients ortho
           </Link>
+          <div
+            style={{
+              opacity: NormalClientsIsFocused ? 0 : 1,
+              height: 3,
+            }}
+            className="w-full  bg-green-400 "
+          ></div>
         </li>
       </ul>
     );
   };
 
   return (
-    <div>
+    <div className="p-4">
       <Tabs />
     </div>
   );

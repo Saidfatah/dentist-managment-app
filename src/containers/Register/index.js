@@ -10,7 +10,7 @@ const RegisterContainer = ({ payments, showModal }) => {
   const LinkClasses = textClasses;
 
   return (
-    <div className="p-2">
+    <div className="p-4">
       <div className="flex justify-between items-center mb-2 ">
         <Heading title="Le register d'aujourdhui" />
         <ActionButton classes="p-2">

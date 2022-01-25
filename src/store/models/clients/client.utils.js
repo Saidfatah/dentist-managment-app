@@ -25,4 +25,3 @@ export const isVisitingToday = (client) => {
 };
 
 export const isOrthoClient = (client) => client.perosnalInfo.isOrthoClient;
-export const isNormalClient = (client) => !client.perosnalInfo.isOrthoClient;

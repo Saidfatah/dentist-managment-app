@@ -50,12 +50,17 @@ const RegisterTable = ({ payments }) => {
               ))}
             </tr>
           ))}
+        {payments.length === 0 ? (
+          <tr className="p-4">
+            <p className="p-4">ilya acune paiment ce jour</p>
+          </tr>
+        ) : null}
       </tbody>
     );
   };
 
   return (
-    <table className="w-full">
+    <table className="w-full shadow-md rounded-lg overflow-hidden border-2 mb-4  border-gray-200">
       <TableHead />
       <TableBody />
     </table>
