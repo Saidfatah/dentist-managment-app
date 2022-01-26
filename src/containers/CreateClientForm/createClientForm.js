@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import FormInfoStep from "./FormInfoStep";
 import FormDateStep from "./FormDateStep";
 import { useSpring, animated } from "react-spring";
+import { Verification } from "./Verification";
 import { MODAL_WIDTH } from "../../utils/constants";
 import {
   ActionButton,
@@ -16,11 +17,12 @@ import { parseStringToBoolean } from "./utils";
 
 const AddClient = ({ addNewclient, submitStatus }) => {
   const [step, setStep] = useState(0);
+  const [erroeMessage, setErrorMessage] = useState({});
+
   const [formData, setformData] = useState({
     ...personalInfoSchema("", "", "", "", "", "", false, ""),
     appointmentDate: new Date(),
   });
-
   const props = useSpring({
     left: step * -1 * (MODAL_WIDTH - 40),
   });
@@ -50,15 +52,20 @@ const AddClient = ({ addNewclient, submitStatus }) => {
     e.preventDefault();
     addNewclient(formData);
   };
-
+  let result
   const Stepper = () => {
     return (
       <div className="w-full flex justify-center ">
         {step === 0 ? (
           <ActionButton
-            classes="gap-0 "
-            onClick={() => {
-              setStep(1);
+          classes="gap-0 "
+          onClick={() => {
+             result=Verification(formData)
+             const {value,message}=result
+            if (value) {
+              setStep(1) 
+            }setErrorMessage(message)
+             
             }}
           >
             <p className="mr-2">Suivant</p>
@@ -112,6 +119,7 @@ const AddClient = ({ addNewclient, submitStatus }) => {
                   <FormInfoStep
                     setFormField={setFormField}
                     formData={formData}
+                    erroeMessage={erroeMessage}
                   />
                 </animated.div>
                 <animated.div

@@ -89,7 +89,7 @@ const InputGroup = ({
           />
           <label
             className="form-check-label inline-block text-gray-800"
-            for="flexCheckChecked"
+            htmlFor="flexCheckChecked"
           >
            Non 
           </label>
