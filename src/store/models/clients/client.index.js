@@ -58,6 +58,14 @@ const model = {
       ...state,
       clientsVisitingToday: [...clientsVisitingToday],
     }),
+    updatedClientShapes: (state, { clientsVisitingToday }) => ({
+      ...state,
+      clientsVisitingToday: [...clientsVisitingToday],
+    }),
+    updatedClientPersonalInfo: (state, { clientsVisitingToday }) => ({
+      ...state,
+      clientsVisitingToday: [...clientsVisitingToday],
+    }),
     confirmedClientAttendance: (state, { clientsVisitingToday }) => ({
       ...state,
       clientsVisitingToday: [...clientsVisitingToday],
@@ -123,8 +131,6 @@ const model = {
         const clientsVisitingToday = state.clients.clientsVisitingToday;
 
         const targetClient = clientsVisitingToday.filter((c) => c.id === id)[0];
-        console.log({ id });
-        console.log(targetClient);
         dispatch.clients.fetchedClientByID({ visitedClient: targetClient });
       } catch (error) {
         console.log("error in : getClientById");
@@ -251,37 +257,6 @@ const model = {
         console.log(error);
       }
     },
-    addsession(form, state) {
-      try {
-        const { price, reste, received, intervention, toothNumber } = form;
-        const session = sessionSchema(
-          toothNumber,
-          intervention,
-          price,
-          received,
-          reste
-        );
-
-        //get client id
-        const { id } = state.clients.visitedClient;
-        const clientsVisitingToday = state.clients.clientsVisitingToday;
-        const targetClient = clientsVisitingToday.filter((c) => c.id === id)[0];
-        if (targetClient) {
-          targetClient.sessions.push(session);
-
-          updateClientInDb(clientsVisitingToday);
-
-          dispatch.clients.addedSession({ clientsVisitingToday });
-          dispatch.clients.getClientById({ id });
-          if (received > 0) dispatch.register.addPayment({ amount: received });
-
-          //const targetClientIndex = clients.indexOf(targetClient)
-        }
-      } catch (error) {
-        console.log("error in : addsession");
-        console.log(error);
-      }
-    },
     addNewclient(formData, state) {
       // create new appointment
       // create new client and set its appointment
@@ -332,6 +307,47 @@ const model = {
         //AddtoFirebase asyncly
       } catch (error) {
         console.log("addNewclient", error);
+      }
+    },
+
+    updateShapes({ shapes }, state) {
+      try {
+        console.log(shapes);
+        const { id } = state.clients.visitedClient;
+        const clientsVisitingToday = state.clients.clientsVisitingToday;
+        const targetClient = clientsVisitingToday.filter((c) => c.id === id)[0];
+
+        if (targetClient) {
+          targetClient.shapes = [...shapes];
+          updateClientInDb(clientsVisitingToday);
+
+          dispatch.clients.updatedClientShapes({ clientsVisitingToday });
+
+          dispatch.clients.getClientById({ id });
+        }
+      } catch (error) {
+        console.log("updateShapes", error);
+      }
+    },
+    updateClientInfo({ updatedFields }, state) {
+      try {
+        const { id } = state.clients.visitedClient;
+        const clientsVisitingToday = state.clients.clientsVisitingToday;
+        const targetClient = clientsVisitingToday.filter((c) => c.id === id)[0];
+
+        if (targetClient) {
+          Array.from(Object.keys(updatedFields)).forEach((key) => {
+            console.log({ key, value: updatedFields[key] });
+            targetClient.perosnalInfo[key] = updatedFields[key];
+          });
+          updateClientInDb(clientsVisitingToday);
+
+          dispatch.clients.updatedClientPersonalInfo({ clientsVisitingToday });
+
+          dispatch.clients.getClientById({ id });
+        }
+      } catch (error) {
+        console.log("updateClientInfo", error);
       }
     },
   }),

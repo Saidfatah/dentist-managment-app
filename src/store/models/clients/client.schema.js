@@ -54,6 +54,12 @@ export const personalInfoSchema = (
   isOrthoClient: isOrthoClient || false,
 });
 
+export const shapeSchema = (shapeName, left, top) => ({
+  shapeName,
+  left,
+  top,
+  id: v4(),
+});
 export const clientSchema = (
   reference,
   firstName,
@@ -91,6 +97,7 @@ export const clientSchema = (
       pregnant: getPropertyIfHas(_extraInfo, "pregnant") || false,
       observation: getPropertyIfHas(_extraInfo, "observation") || "",
     },
+    shapes: [shapeSchema("ARROW_RIGHT", 50, 50)], //
     initialBalance: 0,
     sessions: sessions || [],
     created_at: formatDate(new Date(), "_"), //stored as DD_MM_YYYY
