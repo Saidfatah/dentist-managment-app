@@ -47,10 +47,12 @@ const Table = ({ sessions }) => {
   };
 
   return (
-    <table className="w-full shadow-xl rounded-lg overflow-hidden border-2   border-gray-200">
-      <TableHead />
-      <TableBody />
-    </table>
+    <div className="w-full h-full shadow-xl rounded-lg overflow-hidden border-2   border-gray-200">
+      <table className="w-full ">
+        <TableHead />
+        <TableBody />
+      </table>
+    </div>
   );
 };
 
