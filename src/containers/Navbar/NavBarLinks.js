@@ -21,7 +21,7 @@ const NavBarLinks = ({ direction, hideSideBar, showModal }) => {
       }
     >
       <li className="p-4">
-        <Link className={LinkClasses} to="/">
+        <Link className={LinkClasses} to="/NormalClients">
           Les Client D'aujhordui
         </Link>
       </li>
