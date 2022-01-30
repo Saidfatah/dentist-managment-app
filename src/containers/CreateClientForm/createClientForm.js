@@ -63,7 +63,7 @@ const AddClient = ({ addNewclient, submitStatus, setHeight }) => {
               result = Verification(formData);
               const { value, message } = result;
               if (value) {
-                setHeight(300);
+                setHeight(460);
                 setStep(1);
               }
               setErrorMessage(message);
