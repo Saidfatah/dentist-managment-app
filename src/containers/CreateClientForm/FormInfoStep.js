@@ -1,6 +1,7 @@
 import React from "react";
+import { Error } from "../../components";
 import InputGroup from "./InputGroup";
-const FormStep1 = ({ setFormField, formData, erroeMessage }) => {
+const FormStep1 = ({ setFormField, formData, errorMessages }) => {
   const {
     CIN,
     firstName,
@@ -29,23 +30,16 @@ const FormStep1 = ({ setFormField, formData, erroeMessage }) => {
         placeHolder={"Prénom"}
         setFormField={setFormField}
         // erro={}
-        />
-        
-        {erroeMessage!==undefined&&
-          erroeMessage.lastNameError !== ""
-          ? <p style={{color:'red',textTransform:'uppercase'}}>{erroeMessage.lastNameError}</p>
-          :null
-        }
+      />
+
+      {errorMessages ? <Error text={errorMessages.lastNameError} /> : null}
       <InputGroup
         setFormField={setFormField}
         value={firstName}
         field={"firstName"}
         placeHolder={"nom"}
-        />
-        {erroeMessage!==undefined&&
-        erroeMessage.firstNameError !== ""
-        ? <p style={{color:'red',textTransform:'uppercase'}}>{erroeMessage.firstNameError}</p>
-        :null}
+      />
+      {errorMessages ? <Error text={errorMessages.firstNameError} /> : null}
       <InputGroup
         setFormField={setFormField}
         value={age}

@@ -1,13 +1,22 @@
 import React, { useEffect, useState, useRef } from "react";
 import { connect } from "react-redux";
+import { animated, useSpring } from "react-spring";
 import { ActionButton, CancelButton } from "../../components";
 
+const INITIAL_HEIGHT = 367;
+const COLLAPSED_HEIGHT = 50;
 const CLientPersonalInfo = ({ client, updateClientInfo }) => {
   const [isEditState, setIsEditState] = useState(false);
   const [ClientInfo, setClientInfo] = useState({});
+  const [height, setHeight] = useState(INITIAL_HEIGHT);
   const [updatedFields, setUpdatedFields] = useState({});
   const [canSubmit, setCanSubmit] = useState(true);
   const lastClientInfo = useRef();
+
+  const heightInterpolated = useSpring({
+    height: height,
+  });
+
   useEffect(() => {
     if (!client) return;
     const { perosnalInfo } = client;
@@ -81,61 +90,73 @@ const CLientPersonalInfo = ({ client, updateClientInfo }) => {
 
   if (!isEditState) inputClass += "  border-white";
   return (
-    <div className="shadow-md rounded-lg p-4 mb-2 border-2 border-gray-200 ">
+    <animated.div
+      onClick={() => {
+        setHeight(
+          height === INITIAL_HEIGHT ? COLLAPSED_HEIGHT : INITIAL_HEIGHT
+        );
+      }}
+      style={{
+        height: heightInterpolated.height,
+      }}
+      className="shadow-md rounded-lg cursor-pointer p-4 mb-2 border-2 border-gray-200 "
+    >
       <div>
-        <div>
-          <span>Nom et Prénom : </span>
-          <span className="text-gray-400">
-            <span>{firstName + " "}</span>
-            <span>{lastName}</span>
-          </span>
-        </div>
-        <div>
-          <span>Age :</span>
-          <br />
-          <input
-            disabled={!isEditState}
-            value={age}
-            type="number"
-            onChange={setFormField("age")}
-            className={inputClass}
-            placeholder="Inserer L'age"
-          />
-        </div>
-        <div>
-          <span>Profession :</span>
-          <input
-            disabled={!isEditState}
-            value={profession}
-            onChange={setFormField("profession")}
-            className={inputClass}
-            placeholder="inserer l'a profession "
-          />
-        </div>
-        <div className="mt-2">
-          <span>Adresse :</span>
-          <input
-            disabled={!isEditState}
-            onChange={setFormField("address")}
-            className={inputClass}
-            value={address}
-            placeholder="inserer l'adress "
-          />
-        </div>
-        <div className="mt-2">
-          <span>Tél :</span>
-          <br />
-          <input
-            disabled={!isEditState}
-            value={phone}
-            onChange={setFormField("phone")}
-            className={inputClass}
-            placeholder="inserer l'a profession "
-          />
-        </div>
+        <span>Nom et Prénom : </span>
+        <span className="text-gray-400">
+          <span>{firstName + " "}</span>
+          <span>{lastName}</span>
+        </span>
       </div>
-      <ClientInfoFooter />
-    </div>
+      {height === INITIAL_HEIGHT ? (
+        <div>
+          <div>
+            <span>Age :</span>
+            <br />
+            <input
+              disabled={!isEditState}
+              value={age}
+              type="number"
+              onChange={setFormField("age")}
+              className={inputClass}
+              placeholder="Inserer L'age"
+            />
+          </div>
+          <div>
+            <span>Profession :</span>
+            <input
+              disabled={!isEditState}
+              value={profession}
+              onChange={setFormField("profession")}
+              className={inputClass}
+              placeholder="inserer l'a profession "
+            />
+          </div>
+          <div className="mt-2">
+            <span>Adresse :</span>
+            <input
+              disabled={!isEditState}
+              onChange={setFormField("address")}
+              className={inputClass}
+              value={address}
+              placeholder="inserer l'adress "
+            />
+          </div>
+          <div className="mt-2">
+            <span>Tél :</span>
+            <br />
+            <input
+              disabled={!isEditState}
+              value={phone}
+              onChange={setFormField("phone")}
+              className={inputClass}
+              placeholder="inserer l'a profession "
+            />
+          </div>
+          <ClientInfoFooter />
+        </div>
+      ) : null}
+    </animated.div>
   );
 };
 

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import FormInfoStep from "./FormInfoStep";
 import FormDateStep from "./FormDateStep";
 import { useSpring, animated } from "react-spring";
-import { Verification } from "./Verification";
+import validator from "./validator";
 import { MODAL_WIDTH } from "../../utils/constants";
 import {
   ActionButton,
@@ -17,12 +17,13 @@ import { parseStringToBoolean } from "./utils";
 
 const AddClient = ({ addNewclient, submitStatus, setHeight }) => {
   const [step, setStep] = useState(0);
-  const [erroeMessage, setErrorMessage] = useState({});
+  const [errorMessages, setErrorMessages] = useState({});
 
   const [formData, setformData] = useState({
     ...personalInfoSchema("", "", "", "", "", "", false, ""),
     appointmentDate: new Date(),
   });
+
   const props = useSpring({
     left: step * -1 * (MODAL_WIDTH - 40),
   });
@@ -32,6 +33,7 @@ const AddClient = ({ addNewclient, submitStatus, setHeight }) => {
   const formStep2opacity = useSpring({
     opacity: step === 1 ? 1 : 0,
   });
+
   const setFormField = (field, subField) => (e) => {
     let value = e.target.value;
     if (value === "true" || value === "false")
@@ -52,6 +54,7 @@ const AddClient = ({ addNewclient, submitStatus, setHeight }) => {
     e.preventDefault();
     addNewclient(formData);
   };
+
   let result;
   const Stepper = () => {
     return (
@@ -60,13 +63,13 @@ const AddClient = ({ addNewclient, submitStatus, setHeight }) => {
           <ActionButton
             classes="gap-0 "
             onClick={() => {
-              result = Verification(formData);
+              result = validator(formData);
               const { value, message } = result;
               if (value) {
                 setHeight(460);
                 setStep(1);
               }
-              setErrorMessage(message);
+              setErrorMessages(message);
             }}
           >
             <div className="flex  items-center py-2 pr-4 pl-3">
@@ -123,7 +126,7 @@ const AddClient = ({ addNewclient, submitStatus, setHeight }) => {
                   {step === 0 ? (
                     <FormInfoStep
                       setFormField={setFormField}
-                      erroeMessage={erroeMessage}
+                      errorMessages={errorMessages}
                       formData={formData}
                     />
                   ) : null}
@@ -150,6 +153,7 @@ const AddClient = ({ addNewclient, submitStatus, setHeight }) => {
         return null;
     }
   };
+
   return (
     <form
       onSubmit={onSubmit}
