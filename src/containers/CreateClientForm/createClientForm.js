@@ -15,7 +15,7 @@ import {
 } from "../../components";
 import { parseStringToBoolean } from "./utils";
 
-const AddClient = ({ addNewclient, submitStatus }) => {
+const AddClient = ({ addNewclient, submitStatus, setHeight }) => {
   const [step, setStep] = useState(0);
   const [erroeMessage, setErrorMessage] = useState({});
 
@@ -52,24 +52,27 @@ const AddClient = ({ addNewclient, submitStatus }) => {
     e.preventDefault();
     addNewclient(formData);
   };
-  let result
+  let result;
   const Stepper = () => {
     return (
       <div className="w-full flex justify-center ">
         {step === 0 ? (
           <ActionButton
-          classes="gap-0 "
-          onClick={() => {
-             result=Verification(formData)
-             const {value,message}=result
-            if (value) {
-              setStep(1) 
-            }setErrorMessage(message)
-             
+            classes="gap-0 "
+            onClick={() => {
+              result = Verification(formData);
+              const { value, message } = result;
+              if (value) {
+                setHeight(300);
+                setStep(1);
+              }
+              setErrorMessage(message);
             }}
           >
-            <p className="mr-2">Suivant</p>
-            <Icon name="RIGHT" classes="mr-1" />
+            <div className="flex  items-center py-2 pr-4 pl-3">
+              <p className="mr-2">Suivant</p>
+              <Icon name="RIGHT" classes="mr-1" />
+            </div>
           </ActionButton>
         ) : (
           <div className=" flex justify-center items-center ">
@@ -77,13 +80,14 @@ const AddClient = ({ addNewclient, submitStatus }) => {
               classes1="mr-4"
               onClick={() => {
                 setStep(0);
+                setHeight(740);
               }}
             >
               <Icon name="LEFT" classes="mr-2" />
               <p className="ml-1">Precedant</p>
             </CancelButton>
             <ActionButton classes="gap-0 " type="submit">
-              <p>Submit</p>
+              <p className="py-2 pr-4 pl-3">Submit</p>
             </ActionButton>
           </div>
         )}
@@ -104,7 +108,7 @@ const AddClient = ({ addNewclient, submitStatus }) => {
               style={{
                 height: "inherit",
               }}
-              className="relative overflow-x-hidden  "
+              className="relative overflow-x-hidden no-scroll-bar "
             >
               <animated.div
                 style={{
@@ -116,20 +120,24 @@ const AddClient = ({ addNewclient, submitStatus }) => {
                   style={{ ...formStep1opacity }}
                   className="w-full flex-shrink-0 "
                 >
-                  <FormInfoStep
-                    setFormField={setFormField}
-                    formData={formData}
-                    erroeMessage={erroeMessage}
-                  />
+                  {step === 0 ? (
+                    <FormInfoStep
+                      setFormField={setFormField}
+                      erroeMessage={erroeMessage}
+                      formData={formData}
+                    />
+                  ) : null}
                 </animated.div>
                 <animated.div
                   style={{ ...formStep2opacity }}
                   className="w-full flex-shrink-0"
                 >
-                  <FormDateStep
-                    setFormField={setFormField}
-                    formData={formData}
-                  />
+                  {step === 1 ? (
+                    <FormDateStep
+                      setFormField={setFormField}
+                      formData={formData}
+                    />
+                  ) : null}
                 </animated.div>
               </animated.div>
             </div>
@@ -145,7 +153,10 @@ const AddClient = ({ addNewclient, submitStatus }) => {
   return (
     <form
       onSubmit={onSubmit}
-      className=" max-w-5xl h-full flex flex-col  justify-between  "
+      style={{
+        height: "calc(100% - 25px)",
+      }}
+      className=" max-w-5xl flex flex-col  justify-between  "
     >
       {formContent()}
     </form>

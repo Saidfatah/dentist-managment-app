@@ -55,12 +55,6 @@ const FormStep1 = ({ setFormField, formData, erroeMessage }) => {
       />
       <InputGroup
         setFormField={setFormField}
-        value={profession}
-        field={"profession"}
-        placeHolder={"Profession"}
-      />
-      <InputGroup
-        setFormField={setFormField}
         value={address}
         field={"address"}
         placeHolder={"Adresse"}

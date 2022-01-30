@@ -3,7 +3,9 @@
   -webkit-animation: spinner 1.5s linear infinite;
   animation: spinner 1.5s linear infinite;
 }
-
+* {
+  box-sizing: border-box;
+}
 @-webkit-keyframes spinner {
   0% {
     -webkit-transform: rotate(0deg);
@@ -20,4 +22,17 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+
+.no-scroll-bar {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.no-scroll-bar::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }
