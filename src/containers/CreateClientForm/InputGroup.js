@@ -10,22 +10,7 @@ const InputGroup = ({
 }) => {
   const inputGorupClasses = "mb-2 flex  flex-col";
   const labelClasses = "";
-  const inputClasses = `
-  bg-white
-  appearance-none
-  border-2
-  border-gray-200
-  bg-white
-  rounded
-  w-full
-  py-2
-  px-4
-  text-gray-700
-  leading-tight
-  focus:outline-none
-  focus:bg-white
-  focus:border-purple-500
-  `;
+  const inputClasses = ` bg-white appearance-none border-2 border-gray-200 bg-white rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500`;
 
   let input;
   if (!type) {
@@ -91,7 +76,7 @@ const InputGroup = ({
             className="form-check-label inline-block text-gray-800"
             htmlFor="flexCheckChecked"
           >
-           Non 
+            Non
           </label>
         </div>
       </div>
