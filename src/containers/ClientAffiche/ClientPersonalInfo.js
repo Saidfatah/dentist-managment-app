@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import { animated, useSpring } from "react-spring";
 import { ActionButton, CancelButton, Icon } from "../../components";
 
-const INITIAL_HEIGHT = 367;
+const UNCOLLAPSED_HEIGHT = 367;
 const COLLAPSED_HEIGHT = 60;
+const INITIAL_HEIGHT = COLLAPSED_HEIGHT;
 const CLientPersonalInfo = ({ client, updateClientInfo }) => {
   const [isEditState, setIsEditState] = useState(false);
   const [ClientInfo, setClientInfo] = useState({});
@@ -89,13 +90,13 @@ const CLientPersonalInfo = ({ client, updateClientInfo }) => {
     " appearance-none border-2 border-gray-200 rounded  py-2 px-4 text-gray-700 leading-tight focus:outline-none   focus:border-blue-500";
 
   if (!isEditState) inputClass += "  border-white";
+
+  const isUncollapsed = height === UNCOLLAPSED_HEIGHT;
   return (
     <animated.div
       onClick={(e) => {
         if (e.target.id === "clientPersonalInfoWrapper")
-          setHeight(
-            height === INITIAL_HEIGHT ? COLLAPSED_HEIGHT : INITIAL_HEIGHT
-          );
+          setHeight(isUncollapsed ? COLLAPSED_HEIGHT : UNCOLLAPSED_HEIGHT);
       }}
       id="clientPersonalInfoWrapper"
       style={{
@@ -110,7 +111,7 @@ const CLientPersonalInfo = ({ client, updateClientInfo }) => {
           <span>{lastName}</span>
         </span>
       </div>
-      {height === INITIAL_HEIGHT ? (
+      {isUncollapsed ? (
         <div>
           <div>
             <span>Age :</span>

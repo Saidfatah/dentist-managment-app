@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import { animated, useSpring } from "react-spring";
 import { ActionButton, CancelButton, Icon } from "../../components";
 
-const INITIAL_HEIGHT = 487;
+const UNCOLLAPSED_HEIGHT = 487;
 const COLLAPSED_HEIGHT = 60;
+const INITIAL_HEIGHT = COLLAPSED_HEIGHT;
 const CLientExtraInfo = ({ client, updateClientExtraInfo }) => {
   const [isEditState, setIsEditState] = useState(false);
   const [ClientExtraInfo, setClientExtraInfo] = useState({});
@@ -102,13 +103,13 @@ const CLientExtraInfo = ({ client, updateClientExtraInfo }) => {
     " appearance-none border-2 border-gray-200 rounded  py-2 px-4 text-gray-700 leading-tight focus:outline-none   focus:border-blue-500";
 
   if (!isEditState) inputClass += "  border-white";
+
+  const unCollapsed = height === UNCOLLAPSED_HEIGHT;
   return (
     <animated.div
       onClick={(e) => {
         if (e.target.id === "clientExtraInfoWrrapper")
-          setHeight(
-            height === INITIAL_HEIGHT ? COLLAPSED_HEIGHT : INITIAL_HEIGHT
-          );
+          setHeight(unCollapsed ? COLLAPSED_HEIGHT : UNCOLLAPSED_HEIGHT);
       }}
       id="clientExtraInfoWrrapper"
       style={{
@@ -116,7 +117,7 @@ const CLientExtraInfo = ({ client, updateClientExtraInfo }) => {
       }}
       className="shadow-md rounded-lg cursor-pointer p-4 mb-2 border-2 border-gray-200 "
     >
-      {height === INITIAL_HEIGHT ? (
+      {unCollapsed ? (
         <div>
           <div>
             <span>Problems de sante :</span>

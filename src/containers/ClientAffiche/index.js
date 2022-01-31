@@ -13,8 +13,8 @@ const ClientAffiche = ({ client }) => {
     <div className="p-4 flex  inline-block min-w-full ">
       <div className="mr-2" style={{ width: 300 }}>
         <ClientPersonalInfo client={client} />
-        <ClientExtraInfo client={client} />
         <ToothCanvas client={client} />
+        <ClientExtraInfo client={client} />
       </div>
       <div
         style={{

@@ -163,7 +163,7 @@ const ToothCanvas = ({ updateShapes, client, getClientById }) => {
   };
 
   return (
-    <div className="bg-white  shadow-xl rounded-lg overflow-hidden border-2   border-gray-200 p-2">
+    <div className="bg-white  shadow-md mb-2 rounded-lg overflow-hidden border-2   border-gray-200 p-2">
       <div
         ref={ref}
         style={{
