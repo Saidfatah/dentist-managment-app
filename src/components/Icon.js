@@ -42,6 +42,28 @@ const Icon = ({ name, size, classes, styles = {} }) => {
         />
       </Svg>
     );
+  if (name === "DOWN")
+    return (
+      <Svg>
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M19 9l-7 7-7-7"
+        />
+      </Svg>
+    );
+  if (name === "UP")
+    return (
+      <Svg>
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M5 15l7-7 7 7"
+        />
+      </Svg>
+    );
   if (name === "ADD")
     return (
       <Svg>

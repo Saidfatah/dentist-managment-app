@@ -3,15 +3,15 @@ import { connect } from "react-redux";
 import { animated, useSpring } from "react-spring";
 import { ActionButton, CancelButton, Icon } from "../../components";
 
-const INITIAL_HEIGHT = 367;
+const INITIAL_HEIGHT = 487;
 const COLLAPSED_HEIGHT = 60;
-const CLientPersonalInfo = ({ client, updateClientInfo }) => {
+const CLientExtraInfo = ({ client, updateClientExtraInfo }) => {
   const [isEditState, setIsEditState] = useState(false);
-  const [ClientInfo, setClientInfo] = useState({});
+  const [ClientExtraInfo, setClientExtraInfo] = useState({});
   const [height, setHeight] = useState(INITIAL_HEIGHT);
   const [updatedFields, setUpdatedFields] = useState({});
   const [canSubmit, setCanSubmit] = useState(true);
-  const lastClientInfo = useRef();
+  const lastClientExtraInfo = useRef();
 
   const heightInterpolated = useSpring({
     height: height,
@@ -19,31 +19,44 @@ const CLientPersonalInfo = ({ client, updateClientInfo }) => {
 
   useEffect(() => {
     if (!client) return;
-    const { perosnalInfo } = client;
+    const { extraInfo } = client;
 
-    if (!ClientInfo) return;
+    if (!extraInfo) return;
+    const {
+      healthProblems,
+      anesthesia,
+      péncilineAllergie,
+      bleeding,
+      pregnant,
+      observation,
+    } = extraInfo;
 
-    const { firstName, lastName, phone, age, profession, address } =
-      perosnalInfo;
-    setClientInfo({
-      firstName,
-      lastName,
-      phone,
-      age,
-      profession,
-      address,
+    setClientExtraInfo({
+      healthProblems,
+      anesthesia,
+      péncilineAllergie,
+      bleeding,
+      pregnant,
+      observation,
     });
   }, [client]);
 
   const setFormField = (field) => (e) => {
     if (!canSubmit) setCanSubmit(true);
     setUpdatedFields({ ...updatedFields, [field]: e.target.value });
-    setClientInfo({ ...ClientInfo, [field]: e.target.value });
+    setClientExtraInfo({ ...ClientExtraInfo, [field]: e.target.value });
   };
 
-  const { firstName, lastName, phone, age, profession, address } = ClientInfo;
+  const {
+    healthProblems,
+    anesthesia,
+    péncilineAllergie,
+    bleeding,
+    pregnant,
+    observation,
+  } = ClientExtraInfo;
 
-  const ClientInfoFooter = () => {
+  const ClientExtraInfoFooter = () => {
     if (isEditState)
       return (
         <div className="mt-2">
@@ -51,7 +64,7 @@ const CLientPersonalInfo = ({ client, updateClientInfo }) => {
             classes="gap-0 p-2 "
             onClick={() => {
               setIsEditState(false);
-              updateClientInfo({ updatedFields });
+              updateClientExtraInfo({ updatedFields });
             }}
           >
             <p className="mr-2 text-sm">Sauvgarder </p>
@@ -60,8 +73,8 @@ const CLientPersonalInfo = ({ client, updateClientInfo }) => {
             classes="gap-0 p-2 "
             onClick={() => {
               setIsEditState(false);
-              console.log(lastClientInfo.current);
-              setClientInfo({ ...lastClientInfo.current });
+              console.log(lastClientExtraInfo.current);
+              setClientExtraInfo({ ...lastClientExtraInfo.current });
             }}
           >
             <p className="mr-2 text-sm">Annuller </p>
@@ -75,8 +88,8 @@ const CLientPersonalInfo = ({ client, updateClientInfo }) => {
           classes="gap-0 p-2 "
           onClick={() => {
             setIsEditState(true);
-            console.log(ClientInfo);
-            lastClientInfo.current = { ...ClientInfo };
+            console.log(ClientExtraInfo);
+            lastClientExtraInfo.current = { ...ClientExtraInfo };
           }}
         >
           <p className="mr-2 text-sm">Modifier </p>
@@ -92,76 +105,89 @@ const CLientPersonalInfo = ({ client, updateClientInfo }) => {
   return (
     <animated.div
       onClick={(e) => {
-        if (e.target.id === "clientPersonalInfoWrapper")
+        if (e.target.id === "clientExtraInfoWrrapper")
           setHeight(
             height === INITIAL_HEIGHT ? COLLAPSED_HEIGHT : INITIAL_HEIGHT
           );
       }}
-      id="clientPersonalInfoWrapper"
+      id="clientExtraInfoWrrapper"
       style={{
         height: heightInterpolated.height,
       }}
-      className="shadow-md  rounded-lg cursor-pointer p-4 mb-2 border-2 border-gray-200 "
+      className="shadow-md rounded-lg cursor-pointer p-4 mb-2 border-2 border-gray-200 "
     >
-      <div>
-        <span>Nom et Prénom : </span>
-        <span className="text-gray-400">
-          <span>{firstName + " "}</span>
-          <span>{lastName}</span>
-        </span>
-      </div>
       {height === INITIAL_HEIGHT ? (
         <div>
           <div>
-            <span>Age :</span>
+            <span>Problems de sante :</span>
             <br />
             <input
               disabled={!isEditState}
-              value={age}
-              type="number"
-              onChange={setFormField("age")}
+              value={healthProblems}
+              onChange={setFormField("healthProblems")}
               className={inputClass}
-              placeholder="Inserer L'age"
             />
           </div>
           <div>
-            <span>Profession :</span>
-            <input
-              disabled={!isEditState}
-              value={profession}
-              onChange={setFormField("profession")}
-              className={inputClass}
-              placeholder="inserer l'a profession "
-            />
-          </div>
-          <div className="mt-2">
-            <span>Adresse :</span>
-            <input
-              disabled={!isEditState}
-              onChange={setFormField("address")}
-              className={inputClass}
-              value={address}
-              placeholder="inserer l'adress "
-            />
-          </div>
-          <div className="mt-2">
-            <span>Tél :</span>
+            <span>Anesthesie local:</span>
             <br />
             <input
               disabled={!isEditState}
-              value={phone}
-              onChange={setFormField("phone")}
+              value={anesthesia}
+              onChange={setFormField("anesthesia")}
               className={inputClass}
-              placeholder="inserer l'a profession "
             />
           </div>
-          <ClientInfoFooter />
+          <div>
+            <span>Alerigque au penciline:</span>
+            <br />
+            <input
+              disabled={!isEditState}
+              value={péncilineAllergie}
+              onChange={setFormField("péncilineAllergie")}
+              className={inputClass}
+            />
+          </div>
+          <div>
+            <span>Soigner vous :</span>
+            <br />
+            <input
+              disabled={!isEditState}
+              value={bleeding}
+              onChange={setFormField("bleeding")}
+              className={inputClass}
+            />
+          </div>
+          <div>
+            <span>Etes-vous enciente :</span>
+            <br />
+            <input
+              disabled={!isEditState}
+              value={pregnant}
+              onChange={setFormField("pregnant")}
+              className={inputClass}
+            />
+          </div>
+          <div>
+            <span>Etes-vous enciente :</span>
+            <br />
+            <textarea
+              disabled={!isEditState}
+              value={observation}
+              onChange={setFormField("observation")}
+              className={inputClass}
+            />
+          </div>
+
+          <ClientExtraInfoFooter />
         </div>
-      ) : null}
+      ) : (
+        <p> Info extra du client</p>
+      )}
     </animated.div>
   );
 };
 
 export default connect(null, (dispatch) => ({
-  updateClientInfo: dispatch.clients.updateClientInfo,
-}))(CLientPersonalInfo);
+  updateClientExtraInfo: dispatch.clients.updateClientExtraInfo,
+}))(CLientExtraInfo);
