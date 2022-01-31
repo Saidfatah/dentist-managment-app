@@ -12,6 +12,12 @@ const NavBarLinks = ({ direction, hideSideBar, showModal }) => {
     direction !== "flex-col" ? "md:border-0  md:p-0 py-2 pr-4 pl-3" : "";
   const LinkClasses = textClasses + "block    " + classForNoneMobile;
 
+  const onAddClientClick = () => {
+    showModal({
+      modal_id: "ADD_APPOINTMENT_MODAL",
+    });
+  };
+
   return (
     <ul
       onClick={() => hideSideBar && hideSideBar()}
@@ -30,18 +36,9 @@ const NavBarLinks = ({ direction, hideSideBar, showModal }) => {
           Register
         </Link>
       </li>
-      <ActionButton>
+      <ActionButton onClick={onAddClientClick}>
         <Icon name="ADD" classes="mr-2" />
-        <p
-          onClick={() =>
-            showModal({
-              modal_id: "ADD_APPOINTMENT_MODAL",
-            })
-          }
-          className={LinkClasses}
-        >
-          ajouter un rendez vous
-        </p>
+        <p className={LinkClasses}>ajouter un rendez vous</p>
       </ActionButton>
     </ul>
   );
