@@ -17,7 +17,7 @@ import {
   addClientToDb,
   fetchTodaysClientsFromCache,
   updateTodaysClientInCheche,
-} from "../../../db";
+} from "../../../services";
 
 const model = {
   state: {
