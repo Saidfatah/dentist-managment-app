@@ -3,7 +3,7 @@ import { isSameDate } from "../../../utils/formatDate";
 import {
   fetchTodaysClientsFromCache,
   updateTodaysClientInCheche,
-} from "../../../db/index";
+} from "../../../services/index";
 import generateRefrence, {
   PAYMENT_REF_PREFIX,
   REF_LENGTH,
