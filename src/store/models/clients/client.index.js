@@ -12,12 +12,10 @@ import {
   appointmentSchema,
 } from "./client.schema";
 import {
-  fetchClientsFromDb,
   updateClientInDb,
-  addClientToDb,
-  fetchTodaysClientsFromCache,
   updateTodaysClientInCheche,
 } from "../../../services";
+import getTodaysClientsService from "../../../services/getTodaysClients";
 
 const model = {
   state: {
@@ -111,11 +109,10 @@ const model = {
   },
   effects: (dispatch) => ({
     //QUERIES
-    getTodaysClients(args, state) {
+    async getTodaysClients(args, state) {
       try {
         // get
-        const todaysVisitingClientsFromCache = fetchTodaysClientsFromCache();
-
+        const todaysVisitingClientsFromCache = await getTodaysClientsService();
         // move this to when we get
         const clientsVisitingToday = todaysVisitingClientsFromCache.map((c) => {
           const client = { ...c };
