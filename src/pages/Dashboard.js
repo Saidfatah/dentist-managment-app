@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 
 const Dashboard = ({ getTodaysClients }) => {
   useEffect(() => {
-    console.log("getTodaysClients");
     getTodaysClients();
   }, []);
 
