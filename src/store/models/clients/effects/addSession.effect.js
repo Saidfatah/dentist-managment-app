@@ -1,5 +1,5 @@
 import { sessionSchema } from "../client.schema";
-import updateClient from "../../../../services/updateClient";
+import updateClientAddSession from "../../../../services/updateClient.addSession";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (dispatch, form, state) => {
@@ -18,17 +18,9 @@ export default (dispatch, form, state) => {
     const targetClient = clientsVisitingToday.filter((c) => c.id === id)[0];
     if (targetClient) {
       targetClient.sessions.push(session);
-
-      // client id , updates , updated doc
-      // updateClient(id,
-      //     {
-      //         field:"sessions",
-      //         update:{
-      //             action : "append",
-      //             value: session
-      //         }
-      //     }
-      // ,targetClient);
+      // perssit to local storage
+      // update client in firestore
+      updateClientAddSession(clientsVisitingToday, id, session);
 
       dispatch.clients.addedSession({ clientsVisitingToday });
       dispatch.clients.getClientById({ id });

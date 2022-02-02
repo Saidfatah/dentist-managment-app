@@ -1,3 +1,4 @@
+import updateClientExtraInfo from "../../../../services/updateClient.ExtraInfo";
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (dispatch, { updatedFields }, state) => {
   try {
@@ -10,6 +11,7 @@ export default (dispatch, { updatedFields }, state) => {
         targetClient.extraInfo[key] = updatedFields[key];
       });
       // updateClientInDb(clientsVisitingToday);
+      updateClientExtraInfo(clientsVisitingToday, id, updatedFields);
 
       dispatch.clients.updatedClientExtraInfo({ clientsVisitingToday });
 
