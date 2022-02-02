@@ -1,3 +1,4 @@
+import updateClientPersonalInfo from "../../../../services/updateClient.PersonalInfo";
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (dispatch, { updatedFields }, state) => {
   try {
@@ -7,10 +8,10 @@ export default (dispatch, { updatedFields }, state) => {
 
     if (targetClient) {
       Array.from(Object.keys(updatedFields)).forEach((key) => {
-        console.log({ key, value: updatedFields[key] });
         targetClient.perosnalInfo[key] = updatedFields[key];
       });
-      // updateClientInDb(clientsVisitingToday);
+
+      updateClientPersonalInfo(clientsVisitingToday, id, updatedFields);
 
       dispatch.clients.updatedClientPersonalInfo({ clientsVisitingToday });
 

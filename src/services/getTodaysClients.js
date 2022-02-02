@@ -5,7 +5,7 @@ import { formatDate } from "../utils/formatDate";
 const getTodaysClientsFirestore = async () => {
   try {
     const date = formatDate(new Date());
-
+    console.log(date);
     const q = query(
       collection(db, "clients"),
       where("appointments", "array-contains", {
@@ -22,6 +22,7 @@ const getTodaysClientsFirestore = async () => {
 };
 
 const getClients = async () => {
+  console.log("getClients");
   let clients;
   const clientsFromCache = localStorage.getItem("TODAYS_CLIENTS");
 
@@ -36,13 +37,14 @@ const getClients = async () => {
   clients = await getTodaysClientsFirestore();
   console.log(clients);
 
-  localStorage.setItem(
-    "TODAYS_CLIENTS",
-    JSON.stringify({
-      clients,
-      day_of_creation: new Date().getDay(),
-    })
-  );
+  if (clients.length)
+    localStorage.setItem(
+      "TODAYS_CLIENTS",
+      JSON.stringify({
+        clients,
+        day_of_creation: new Date().getDay(),
+      })
+    );
   return clients;
 };
 

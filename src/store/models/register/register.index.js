@@ -1,9 +1,11 @@
 import { PaymentSchema } from "./payment.schema";
 import { isSameDate } from "../../../utils/formatDate";
+
 import {
   fetchTodaysClientsFromCache,
   updateTodaysClientInCheche,
 } from "../../../services/index";
+import updateClientAddPayment from "../../../services/updateClient.addPayment";
 import generateRefrence, {
   PAYMENT_REF_PREFIX,
   REF_LENGTH,
@@ -41,103 +43,6 @@ const model = {
     getPayments(field, state) {
       try {
         const clientsVisitingToday = state.clients.clientsVisitingToday;
-
-        // const clientsVisitingToday = [
-        //   {
-        //     id: "902db771-6bdf-4d21-a375-b7db5ced8d9b",
-        //     perosnalInfo: {
-        //       firstName: "bamoussa",
-        //       lastName: "hamza",
-        //       phone: "09896876653",
-        //       age: "gha taykhra",
-        //       profession: "Morroco / warzazate / tabount /tarmight",
-        //       CIN: "19",
-        //       isOrthoClient: false,
-        //     },
-        //     extraInfo: {
-        //       healthProblems: "",
-        //       anesthesia: false,
-        //       péncilineAllergie: false,
-        //       bleeding: false,
-        //       pregnant: false,
-        //       observation: "",
-        //     },
-        //     initialBalance: 0,
-        //     sessions: [],
-        //     created_at: "2022-01-01T22:52:54.891Z",
-        //     updated_at: "2022-01-12T22:52:54.891Z",
-        //     appointments: [
-        //       {
-        //         date: "2022-01-15T22:48:23.000Z",
-        //       },
-        //     ],
-        //     payments: [
-        //       PaymentSchema(
-        //         "P0001",
-        //         100,
-        //         "bamoussa hamza",
-        //         new Date("2022-01-15T10:52:54.891Z"),
-        //         0,
-        //         "C0001"
-        //       ),
-        //       PaymentSchema(
-        //         "P0002",
-        //         300,
-        //         "bamoussa hamza",
-        //         new Date("2022-01-12T10:52:54.891Z"),
-        //         0,
-        //         "C0001"
-        //       ),
-        //     ],
-        //   },
-        //   {
-        //     id: "e2e681b6-60a0-4a8d-b694-c1612a5af1c5",
-        //     perosnalInfo: {
-        //       firstName: "fatah",
-        //       lastName: "said",
-        //       phone: "malzkemlkazme",
-        //       age: "azlmjelkazj",
-        //       profession: "azekamzlek",
-        //       CIN: "20",
-        //       isOrthoClient: false,
-        //     },
-        //     extraInfo: {
-        //       healthProblems: "",
-        //       anesthesia: false,
-        //       péncilineAllergie: false,
-        //       bleeding: false,
-        //       pregnant: false,
-        //       observation: "",
-        //     },
-        //     initialBalance: 0,
-        //     sessions: [],
-        //     created_at: "2022-01-15T22:55:21.503Z",
-        //     updated_at: "2022-01-15T22:55:21.503Z",
-        //     appointments: [
-        //       {
-        //         date: "2022-01-15T22:53:12.000Z",
-        //       },
-        //     ],
-        //     payments: [
-        //       PaymentSchema(
-        //         "P0003",
-        //         100,
-        //         "said fatah",
-        //         new Date("2022-01-16T10:52:54.891Z"),
-        //         0,
-        //         "C0002"
-        //       ),
-        //       PaymentSchema(
-        //         "P0004",
-        //         500,
-        //         "said fatah",
-        //         new Date("2022-01-16T10:52:54.891Z"),
-        //         0,
-        //         "C0002"
-        //       ),
-        //     ],
-        //   },
-        // ];
         const todaysPaimentsFilter = (payment) => isSameDate(payment.date);
         const payments = clientsVisitingToday.reduce(
           (a, c) => [...a, ...c.payments.filter(todaysPaimentsFilter)],
@@ -160,7 +65,7 @@ const model = {
       try {
         dispatch.register.startedAddingPayment();
         const searchedClient = state.clients.searchedClient;
-        console.log(searchedClient);
+
         if (searchedClient) {
           const clientsVisitingToday = [...state.clients.clientsVisitingToday];
           const { clientFound, from, index } = searchedClient;
@@ -180,16 +85,18 @@ const model = {
             );
 
             if (from === "TODAYS_CLIENTS") {
-              console.log(clientsVisitingToday[index]);
               const newBalance =
                 clientsVisitingToday[index].initialBalance - amount;
               clientsVisitingToday[index].payments.push(newPayment);
               clientsVisitingToday[index].initialBalance = newBalance;
-              updateTodaysClientInCheche(clientsVisitingToday);
+              updateClientAddPayment(
+                clientFound.id,
+                newPayment,
+                clientsVisitingToday
+              );
+            } else {
+              updateClientAddPayment(clientFound.id, newPayment);
             }
-
-            // perform update query to firestore to update the target client
-            // pass {balance,payments}
 
             const payments = [newPayment, ...state.register.payments];
 
@@ -198,7 +105,6 @@ const model = {
               visitedClients: clientsVisitingToday,
               payments,
             });
-            console.log(newPayment);
           }
         }
       } catch (error) {
