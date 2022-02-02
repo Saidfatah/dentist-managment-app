@@ -40,7 +40,6 @@ const Table = ({ confirmClientAttendance, clients, HEADERS }) => {
               lastName,
               NSESSION: sessions.length,
             };
-            console.log(confirmClientAttendance)
             if (!confirmClientAttendance)
               cellsObj.action1 = (
                 <ActionButton
