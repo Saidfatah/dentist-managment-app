@@ -26,9 +26,10 @@ const FormDateStep = ({ setFormField, formData }) => {
       <DatePicker
         className={inputClasses}
         selected={appointmentDate}
-        onChange={(date) =>
-          setFormField("appointmentDate")({ target: { value: date } })
-        }
+        onChange={(date) => {
+          console.log(date);
+          setFormField("appointmentDate")({ target: { value: date } });
+        }}
       />
     </div>
   );

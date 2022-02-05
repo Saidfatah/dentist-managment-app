@@ -6,13 +6,16 @@ const ActionButton = ({
   onClick,
   type,
   classes,
+  extraStyles = {},
   disabled = false,
   color = "text-white",
+  justify = "justify-between",
 }) => {
   let _classes = `${disabled ? "bg-green-200" : "bg-green-400"} rounded-sm`;
   if (!classes || classes.indexOf("p-") < 0) _classes += " p-2";
   return (
     <button
+      style={{ ...extraStyles }}
       disabled={disabled}
       type={type || "button"}
       className={_classes + (disabled ? " cursor-default " : "")}
@@ -20,7 +23,9 @@ const ActionButton = ({
     >
       <div
         className={
-          "flex justify-between items-center font-bold  " +
+          "flex  items-center font-bold  " +
+          justify +
+          " " +
           color +
           " " +
           classes

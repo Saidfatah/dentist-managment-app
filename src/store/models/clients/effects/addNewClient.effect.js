@@ -4,10 +4,11 @@ import generateRefrence, {
 } from "../../../../utils/generateRefrence";
 import { appointmentSchema, clientSchema } from "../client.schema";
 import createClient from "../../../../services/createClient";
+import updateClientAddAppointment from "../../../../services/updateClient.addAppointment";
 import { formatDate } from "../../../../utils/formatDate";
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default async (dispatch, formData, state) => {
+export default async (dispatch, { formData, isNew }, state) => {
   // create new appointment
   // create new client and set its appointment
   try {
@@ -23,43 +24,52 @@ export default async (dispatch, formData, state) => {
       address,
       isOrthoClient,
     } = formData;
-    const appointmentDate = formatDate(FormData.appointmentDate);
 
-    const firstAppointment = appointmentSchema(appointmentDate);
+    const appointmentDate = formatDate(formData.appointmentDate);
 
-    const clientsCount = state.clients.clientsCount;
-    const newClientRef = generateRefrence(
-      clientsCount,
-      CLIENT_REF_PREFIX,
-      REF_LENGTH
-    );
-    const newClient = clientSchema(
-      newClientRef,
-      firstName,
-      lastName,
-      CIN,
-      phone,
-      age,
-      profession,
-      address,
-      [],
-      undefined,
-      firstAppointment,
-      isOrthoClient,
-      undefined
-    );
+    const newAppoitment = appointmentSchema(appointmentDate);
 
-    const clientsVisitingToday = state.clients.clientsVisitingToday;
+    if (isNew) {
+      const clientsCount = state.clients.clientsCount;
+      const newClientRef = generateRefrence(
+        clientsCount,
+        CLIENT_REF_PREFIX,
+        REF_LENGTH
+      );
+      const newClient = clientSchema(
+        newClientRef,
+        firstName,
+        lastName,
+        CIN,
+        phone,
+        age,
+        profession,
+        address,
+        [],
+        undefined,
+        newAppoitment,
+        isOrthoClient,
+        undefined
+      );
 
-    const newClients = await createClient(newClient, appointmentDate);
+      const clientsVisitingToday = state.clients.clientsVisitingToday;
 
-    // this means that appointment date is same as today therfore
-    // we should add client to todaysClients
-    console.log(newClients);
-    if (newClients && newClients.length) {
-      dispatch.clients.addedClient([...clientsVisitingToday, newClient]);
-      dispatch.clients.getTodaysClients();
+      const newClients = await createClient(newClient, appointmentDate);
+
+      if (newClients && newClients.length)
+        dispatch.clients.addedClient([...clientsVisitingToday, newClient]);
+    } else {
+      const { clientFound } = state.clients.searchedClient;
+
+      await updateClientAddAppointment(
+        undefined,
+        clientFound.id,
+        newAppoitment
+      );
     }
+
+    dispatch.clients.addedApointment();
+    dispatch.clients.getTodaysClients();
   } catch (error) {
     console.log("addNewclient", error);
   }

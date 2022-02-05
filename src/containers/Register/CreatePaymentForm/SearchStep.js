@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Error, Icon } from "../../../components";
 
 const inputClasses = `bg-white appearance-none border-2 border-gray-200 bg-white rounded w-full py-2 px-4 text-gray-700 focus:outline-none focus:bg-white focus:border-purple-500`;
@@ -28,11 +29,12 @@ const SearchresultItem = ({ clientFound, removeFoundClient }) => {
 const SearchStep = ({
   setSearchtext,
   searchText,
-  clientFound,
+  searchedClient,
   searchError,
   removeFoundClient,
 }) => {
-  console.log(clientFound);
+  const { clientFound } = searchedClient;
+
   return (
     <div>
       <input
@@ -50,4 +52,13 @@ const SearchStep = ({
     </div>
   );
 };
-export default SearchStep;
+
+export default connect(
+  (state) => ({
+    searchedClient: state.clients.searchedClient,
+    searchError: state.clients.searchError,
+  }),
+  (dispatch) => ({
+    removeFoundClient: dispatch.clients.removeFoundClient,
+  })
+)(SearchStep);

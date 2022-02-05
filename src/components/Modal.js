@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import Modal from "react-modal";
 import { connect } from "react-redux";
 import { animated, useSpring } from "react-spring";
 import Icon from "./Icon";
 import getConfirmation from "../utils/getConfirmation";
+import { STEP_0_HEIGHT } from "../containers/CreateClientOrScheduleForm/constants";
 const ModalComponent = ({
   children,
   appointmentModalIsOpen,
@@ -13,11 +13,19 @@ const ModalComponent = ({
   height,
   title,
   submitStatus,
+  setHeight,
   id,
 }) => {
   const heightInterpolated = useSpring({
     height: height,
   });
+
+  useEffect(() => {
+    console.log(setHeight, appointmentModalIsOpen);
+    if (appointmentModalIsOpen && setHeight && height !== STEP_0_HEIGHT) {
+      setHeight(STEP_0_HEIGHT);
+    }
+  }, [appointmentModalIsOpen]);
 
   const closeModal = () => {
     if (submitStatus === "SUBMIT_SUCCESS") return hideModal();

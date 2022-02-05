@@ -62,11 +62,8 @@ const CreatePaymentFormInModal = ({
               >
                 <SearchStep
                   {...{
-                    removeFoundClient,
                     setSearchtext,
                     searchText,
-                    clientFound,
-                    searchError,
                   }}
                 />
               </animated.div>

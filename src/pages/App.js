@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import Layout from "./Layout";
 import StoreDataInit from "./StoreDataInit";
 import store from "../store/store";
-import CreateClientFormInModal from "../containers/CreateClientForm/FormInModal";
+import CreateClientFormInModal from "../containers/CreateClientOrScheduleForm/FormInModal";
 import CreatePaymentFormInModal from "../containers/Register/CreatePaymentForm/CreatePaymentFormInModal";
 
 const App = () => {
