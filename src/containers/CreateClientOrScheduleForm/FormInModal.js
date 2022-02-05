@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import Modal from "../../components/Modal";
 import CreateClientForm from "./createClientForm";
 import { MODAL_WIDTH } from "../../utils/constants";
+import { STEP_0_HEIGHT } from "./constants";
 
 const FormInModal = () => {
-  const [height, setHeight] = useState(740);
+  const [height, setHeight] = useState(STEP_0_HEIGHT);
 
   return (
     <Modal

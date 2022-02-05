@@ -34,6 +34,9 @@ const model = {
     addedClient: (state, clients) => ({
       ...state,
       clients,
+    }),
+    addedApointment: (state, clients) => ({
+      ...state,
       submitStatus: "SUBMIT_SUCCESS",
     }),
     closedCreateNewClientModal: (state, args) => ({
