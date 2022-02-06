@@ -45,7 +45,7 @@ export default (dispatch, { CIN }, state) => {
 
       //if client doesn exist in todaysClients nor in
       dispatch.clients.searchingForClientFailed({
-        searchError: "NOT_FOUND",
+        searchError: "client nexist pas",
       });
     }, 1000);
   } catch (error) {
