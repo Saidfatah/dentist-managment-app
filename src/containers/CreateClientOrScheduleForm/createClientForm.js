@@ -30,10 +30,11 @@ const AddClient = ({
   getClientByCIN,
   setHeight,
   searchedClient,
+  isSearching,
 }) => {
   const [step, setStep] = useState(0);
   const [step1Type, setStep1Type] = useState(0);
-  const [searchText, setSearchtext] = useState(0);
+  const [searchText, setSearchtext] = useState("");
   const [errorMessages, setErrorMessages] = useState({});
 
   const [formData, setformData] = useState({
@@ -82,6 +83,7 @@ const AddClient = ({
         {step === 1 ? (
           <div className=" flex justify-center items-center ">
             <CancelButton
+              disabled={isSearching}
               classes1="mr-4"
               onClick={() => {
                 setStep(0);
@@ -111,9 +113,24 @@ const AddClient = ({
                 }
               }}
             >
-              <div className="flex  items-center py-2 pr-4 pl-3">
-                <p className="mr-2">Suivant</p>
-                <Icon name="RIGHT" classes="mr-1" />
+              <div
+                style={{
+                  minWidth: 114,
+                  minHeight: 40,
+                }}
+                className={
+                  "flex  items-center py-2 pr-4 pl-3 " +
+                  (isSearching ? " justify-center " : "")
+                }
+              >
+                {isSearching ? (
+                  <Loader />
+                ) : (
+                  <>
+                    <p className="mr-2">Suivant</p>
+                    <Icon name="RIGHT" classes="mr-1" />
+                  </>
+                )}
               </div>
             </ActionButton>
           </div>
@@ -239,6 +256,7 @@ export default connect(
   (state) => ({
     submitStatus: state.clients.submitStatus,
     searchedClient: state.clients.searchedClient,
+    isSearching: state.clients.isSearching,
   }),
   (dispatch) => ({
     addNewclient: dispatch.clients.addNewclient,

@@ -15,7 +15,7 @@ const model = {
     clientsVisitingTodayCount: 0,
 
     //search functionality
-    searchError: "client nexist pas",
+    searchError: "NO_ERROR",
     isSearching: false,
     searchedClient: {
       clientFound: undefined,
