@@ -107,10 +107,6 @@ const CLientExtraInfo = ({ client, updateClientExtraInfo }) => {
   const unCollapsed = height === UNCOLLAPSED_HEIGHT;
   return (
     <animated.div
-      onClick={(e) => {
-        if (e.target.id === "clientExtraInfoWrrapper")
-          setHeight(unCollapsed ? COLLAPSED_HEIGHT : UNCOLLAPSED_HEIGHT);
-      }}
       id="clientExtraInfoWrrapper"
       style={{
         height: heightInterpolated.height,
@@ -119,6 +115,17 @@ const CLientExtraInfo = ({ client, updateClientExtraInfo }) => {
     >
       {unCollapsed ? (
         <div>
+          <div className="flex justify-between items-center">
+            <div></div>
+            <button
+              type="button"
+              onClick={(e) => {
+                setHeight(unCollapsed ? COLLAPSED_HEIGHT : UNCOLLAPSED_HEIGHT);
+              }}
+            >
+              <Icon name="UP" />
+            </button>
+          </div>
           <div>
             <span>Problems de sante :</span>
             <br />
@@ -183,7 +190,17 @@ const CLientExtraInfo = ({ client, updateClientExtraInfo }) => {
           <ClientExtraInfoFooter />
         </div>
       ) : (
-        <p> Info extra du client</p>
+        <div className="flex justify-between items-center">
+          <p> Info extra du client</p>
+          <button
+            type="button"
+            onClick={(e) => {
+              setHeight(unCollapsed ? COLLAPSED_HEIGHT : UNCOLLAPSED_HEIGHT);
+            }}
+          >
+            <Icon name="DOWN" />
+          </button>
+        </div>
       )}
     </animated.div>
   );
