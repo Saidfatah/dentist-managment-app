@@ -21,7 +21,6 @@ const ModalComponent = ({
   });
 
   useEffect(() => {
-    console.log(setHeight, appointmentModalIsOpen);
     if (appointmentModalIsOpen && setHeight && height !== STEP_0_HEIGHT) {
       setHeight(STEP_0_HEIGHT);
     }

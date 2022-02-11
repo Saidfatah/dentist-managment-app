@@ -2,13 +2,21 @@ import React from "react";
 import Loader from "../../components/Loader";
 import Table from "./Table";
 import ClientPersonalInfo from "./ClientPersonalInfo";
-import ToothCanvas from "./toothCanvas";
+import ToothCanvas from "./toothCanvas/toothCanvas";
 import ClientExtraInfo from "./ClientExtraInfo";
-import { Heading } from "../../components";
 
 const ClientAffiche = ({ client }) => {
-  if (client == undefined || client == null)
-    return <Loader title="Attendez S'il vous plaît." />;
+  if (client == undefined || client == null || JSON.stringify(client) == "{}")
+    return (
+      <div
+        style={{
+          height: "calc(100vh - 72px)",
+        }}
+        className=" w-screen flex justify-center items-center "
+      >
+        <Loader size={40} />;
+      </div>
+    );
 
   return (
     <div className="p-4 ">
