@@ -39,6 +39,7 @@ const NormalClients = ({
         confirmClientAttendance={confirmClientAttendance}
         clients={notAttendedClientsVisitingToday}
         HEADERS={["Nom", "Prénom", "N°session", "présence"]}
+        noClientsVisitingToday={clientsVisitingToday.length === 0}
       />
       <div className=" text-lg font-bold">
         <h1>Les clients present</h1>
