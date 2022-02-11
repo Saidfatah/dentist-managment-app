@@ -3,7 +3,12 @@ import React from "react";
 import ActionButton from "../../components/buttons/ActionButton";
 import { useNavigate } from "react-router-dom";
 
-const Table = ({ confirmClientAttendance, clients, HEADERS }) => {
+const Table = ({
+  confirmClientAttendance,
+  clients,
+  HEADERS,
+  noClientsVisitingToday,
+}) => {
   let navigate = useNavigate();
   const confirmClientAttended = (id) => () => {
     confirmClientAttendance({ id });
@@ -81,7 +86,11 @@ const Table = ({ confirmClientAttendance, clients, HEADERS }) => {
           ))}
         {clients.length === 0 && confirmClientAttendance ? (
           <tr className="p-4">
-            <p className="p-4">tous les clients sont présents</p>
+            <p className="p-4">
+              {!noClientsVisitingToday
+                ? "tous les clients sont présents"
+                : "Aucune patient aujourdhui"}
+            </p>
           </tr>
         ) : null}
       </tbody>
