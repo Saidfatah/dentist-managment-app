@@ -101,7 +101,7 @@ const AddClient = ({
                   const { value, message } = result;
                   if (value) {
                     setHeight(DATE_STEP_HEIGHT);
-                    setStep(step - 1);
+                    setStep(step + 1);
                   }
                   setErrorMessages(message);
                 } else {

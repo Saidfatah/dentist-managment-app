@@ -87,10 +87,11 @@ export const personalInfoSchema = (
   isOrthoClient: isOrthoClient || false,
 });
 
-export const shapeSchema = (shapeName, left, top) => ({
+export const shapeSchema = (shapeName, left, top, angle) => ({
   shapeName,
   left,
   top,
+  angle: angle || 0,
   id: v4(),
 });
 export const clientSchema = (

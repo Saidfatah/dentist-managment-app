@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import ClientAfficheContainer from "../containers/ClientAffiche";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 
 const ClientAffiche = ({ client, getClientById }) => {
@@ -8,7 +8,7 @@ const ClientAffiche = ({ client, getClientById }) => {
 
   useEffect(() => {
     getClientById({ id });
-  }, []);
+  }, [getClientById, id]);
 
   return (
     <div>
