@@ -1,4 +1,10 @@
-import { addDoc, collection } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  increment,
+  updateDoc,
+} from "firebase/firestore";
 import { formatDate } from "../utils/formatDate";
 import { db } from "./firebaseConfig";
 
@@ -8,13 +14,19 @@ const createClientInFirestore = async (clientData) => {
       ...clientData,
     });
 
+    //increment clients counts
+    const countsRef = doc(db, "COUNTS/HkNwOOlP8b860gY6VLnn");
+    await updateDoc(countsRef, {
+      clientsCount: increment(1),
+    });
+
     return { ...clientData, id: clientDataRes.id };
   } catch (error) {
     console.log(error);
   }
 };
 
-const createClient = async (clientData, appointmentDate) => {
+const createClient = async (clientData, appointmentDate, counts) => {
   const todaysDate = formatDate(new Date());
 
   const createdClient = await createClientInFirestore(clientData);
@@ -38,6 +50,16 @@ const createClient = async (clientData, appointmentDate) => {
         day_of_creation: new Date().getDay(),
       })
     );
+
+    console.log(counts);
+    localStorage.setItem(
+      "COUNTS_DENTIST_APP",
+      JSON.stringify({
+        counts,
+        day_of_creation: new Date().getDay(),
+      })
+    );
+
     return newClients;
   }
 
