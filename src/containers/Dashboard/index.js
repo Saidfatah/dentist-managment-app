@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 
-const LinkClasses = `nav-linkblockfont-mediumtext-xsleading-tightuppercaseborder-x-0 border-t-0 border-b-2 border-transparentpx-6py-3hover:border-transparent hover:bg-gray-100focus:border-transparentactive`;
+const LinkClasses = `nav-link block font-medium text-xs leading-tight uppercase border-x-0 border-t-0 border-b-2 border-transparent px-6 py-3 hover:border-transparent hover:bg-gray-100 focus:border-transparent active`;
 const DashboardContainer = () => {
   const navigation = useNavigate();
   const location = useLocation();
