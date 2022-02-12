@@ -98,7 +98,7 @@ const Table = ({
   };
 
   return (
-    <table className="w-full mb-2 shadow-md rounded-lg overflow-hidden border-2 mb-4  border-gray-200">
+    <table className="w-full  shadow-md rounded-lg overflow-hidden border-2 mb-4  border-gray-200">
       <TableHead />
       <TableBody />
     </table>
