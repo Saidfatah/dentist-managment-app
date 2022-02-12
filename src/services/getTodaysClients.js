@@ -33,7 +33,6 @@ const getClients = async () => {
   }
 
   clients = await getTodaysClientsFirestore();
-  console.log(clients);
 
   if (clients.length)
     localStorage.setItem(

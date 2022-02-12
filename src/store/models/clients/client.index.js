@@ -7,7 +7,7 @@ import confirmClientAttendanceEffect from "./effects/confirmClientAttendance.eff
 import updateShapesEffect from "./effects/updateShapes.effect";
 import updateClientInfoEffect from "./effects/updateClientInfo.effect";
 import updateClientExtraInfoEffect from "./effects/updateClientExtraInfo.effect";
-import { updateClientInDb } from "../../../services";
+import getCountsEffect from "./effects/getCounts.effect";
 
 const model = {
   state: {
@@ -24,6 +24,7 @@ const model = {
     },
 
     clientsCount: 0,
+    paymentsCount: 0,
     //[FIRESTORE_TODO] store in counts collectio
     // starts with C
     lastAddedClientrefrence: 0,
@@ -34,6 +35,7 @@ const model = {
     addedClient: (state, clients) => ({
       ...state,
       clients,
+      clientsCount: state.clientsCount + 1,
     }),
     addedApointment: (state, clients) => ({
       ...state,
@@ -91,6 +93,11 @@ const model = {
       searchedClient: { ...searchedClient },
       isSearching: false,
     }),
+    fetchedCounts: (state, { clientsCount, paymentsCount }) => ({
+      ...state,
+      clientsCount,
+      paymentsCount,
+    }),
     startedSearchingForClient: (state, args) => ({
       ...state,
       isSearching: true,
@@ -107,6 +114,7 @@ const model = {
       getTodaysClientsEffect(dispatch, args, state),
 
     getClientById: (args, state) => getClientByIdEffect(dispatch, args, state),
+    getCounts: (args, state) => getCountsEffect(dispatch, args, state),
 
     removeFoundClient: (args, state) => dispatch.clients.removedFoundClient(),
 

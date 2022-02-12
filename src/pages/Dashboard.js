@@ -4,10 +4,11 @@ import { Outlet } from "react-router-dom";
 import DashboardContainer from "../containers/Dashboard/index";
 import { connect } from "react-redux";
 
-const Dashboard = ({ getTodaysClients }) => {
+const Dashboard = ({ getTodaysClients, getCounts }) => {
   useEffect(() => {
+    getCounts();
     getTodaysClients();
-  }, []);
+  }, [getCounts, getTodaysClients]);
 
   return (
     <div className="p-4">
@@ -23,4 +24,5 @@ const Dashboard = ({ getTodaysClients }) => {
 
 export default connect(null, (dispatch) => ({
   getTodaysClients: dispatch.clients.getTodaysClients,
+  getCounts: dispatch.clients.getCounts,
 }))(Dashboard);

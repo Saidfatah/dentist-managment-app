@@ -31,6 +31,7 @@ export default async (dispatch, { formData, isNew }, state) => {
 
     if (isNew) {
       const clientsCount = state.clients.clientsCount;
+      const paymentsCount = state.clients.paymentsCount;
       const newClientRef = generateRefrence(
         clientsCount,
         CLIENT_REF_PREFIX,
@@ -54,7 +55,10 @@ export default async (dispatch, { formData, isNew }, state) => {
 
       const clientsVisitingToday = state.clients.clientsVisitingToday;
 
-      const newClients = await createClient(newClient, appointmentDate);
+      const newClients = await createClient(newClient, appointmentDate, {
+        clientsCount: clientsCount + 1,
+        paymentsCount,
+      });
 
       if (newClients && newClients.length)
         dispatch.clients.addedClient([...clientsVisitingToday, newClient]);
