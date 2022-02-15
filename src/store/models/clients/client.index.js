@@ -8,6 +8,7 @@ import updateShapesEffect from "./effects/updateShapes.effect";
 import updateClientInfoEffect from "./effects/updateClientInfo.effect";
 import updateClientExtraInfoEffect from "./effects/updateClientExtraInfo.effect";
 import getCountsEffect from "./effects/getCounts.effect";
+import uploadImageEffect from "./effects/uploadImage.effect";
 
 const model = {
   state: {
@@ -30,6 +31,7 @@ const model = {
     lastAddedClientrefrence: 0,
     visitedClient: undefined,
     submitStatus: "SUBMIT_READY", // SUBMIT_PROGRESS SUBMIT_SUCCESS SUBMIT_ERROR
+    imageSubmitStatus: "SUBMIT_READY", // SUBMIT_PROGRESS SUBMIT_SUCCESS SUBMIT_ERROR
   },
   reducers: {
     addedClient: (state, clients) => ({
@@ -48,6 +50,18 @@ const model = {
     startedAddingClient: (state, args) => ({
       ...state,
       submitStatus: "SUBMIT_PROGRESS",
+    }),
+    startedUploadingImage: (state, args) => ({
+      ...state,
+      imageSubmitStatus: "SUBMIT_PROGRESS",
+    }),
+    finishedUploadingImage: (state, args) => ({
+      ...state,
+      imageSubmitStatus: "SUBMIT_SUCESS",
+    }),
+    imageUploadFailled: (state, args) => ({
+      ...state,
+      imageSubmitStatus: "ERROR",
     }),
     addedSession: (state, { clientsVisitingToday }) => ({
       ...state,
@@ -115,6 +129,7 @@ const model = {
 
     getClientById: (args, state) => getClientByIdEffect(dispatch, args, state),
     getCounts: (args, state) => getCountsEffect(dispatch, args, state),
+    uploadImage: (args, state) => uploadImageEffect(dispatch, args, state),
 
     removeFoundClient: (args, state) => dispatch.clients.removedFoundClient(),
 
