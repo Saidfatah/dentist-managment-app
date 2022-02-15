@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, memo } from "react";
+import React, { useEffect, useRef } from "react";
 import { shapeSchema } from "../../../store/models/clients/client.schema";
 import { Icon } from "../../../components";
 
@@ -17,7 +17,6 @@ const Shape = ({
 
   useEffect(() => {
     if (!shapeRef.current) return;
-    if (!isFromboard) console.log({ top, left });
   }, [left, angle, top]);
 
   let shapeIcon = <Icon size={30} classes=" text-red-500" name={shapeName} />;
@@ -96,10 +95,4 @@ const Shape = ({
   );
 };
 
-const compare = (prev, next) => {
-  const { left: leftPrev, top: topPrev, angle: anglePrev } = prev;
-  const { left: leftNext, top: topNext, angle: angleNext } = next;
-
-  return false;
-};
-export default memo(Shape, compare);
+export default Shape;

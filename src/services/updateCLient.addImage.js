@@ -12,7 +12,7 @@ const updateClientAddImageInFirestore = async (id, newImageUrl) => {
   }
 };
 
-const updateClientAddImage = async (newTodaysClients, id, newImageUrl) => {
+const updateClientAddImage = async (id, newImageUrl) => {
   await updateClientAddImageInFirestore(id, newImageUrl);
 
   //   localStorage.setItem(

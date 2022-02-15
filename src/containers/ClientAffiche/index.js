@@ -27,7 +27,7 @@ const ClientAffiche = ({ client }) => {
         <div className="mr-2" style={{ width: 300 }}>
           <ToothCanvas client={client} />
           <ClientExtraInfo client={client} />
-          <ImagesGallery />
+          <ImagesGallery client={client} />
         </div>
         <div
           style={{
