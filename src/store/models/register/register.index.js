@@ -1,10 +1,6 @@
 import { PaymentSchema } from "./payment.schema";
 import { isSameDate } from "../../../utils/formatDate";
 
-import {
-  fetchTodaysClientsFromCache,
-  updateTodaysClientInCheche,
-} from "../../../services/index";
 import updateClientAddPayment from "../../../services/updateClient.addPayment";
 import generateRefrence, {
   PAYMENT_REF_PREFIX,

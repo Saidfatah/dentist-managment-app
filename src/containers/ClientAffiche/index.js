@@ -4,6 +4,7 @@ import Table from "./Table";
 import ClientPersonalInfo from "./ClientPersonalInfo";
 import ToothCanvas from "./toothCanvas/toothCanvas";
 import ClientExtraInfo from "./ClientExtraInfo";
+import ImagesGallery from "./ImagesGallery";
 
 const ClientAffiche = ({ client }) => {
   if (client == undefined || client == null || JSON.stringify(client) == "{}")
@@ -26,6 +27,7 @@ const ClientAffiche = ({ client }) => {
         <div className="mr-2" style={{ width: 300 }}>
           <ToothCanvas client={client} />
           <ClientExtraInfo client={client} />
+          <ImagesGallery />
         </div>
         <div
           style={{
