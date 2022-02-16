@@ -47,10 +47,21 @@ const ImageUploadForm = ({ uploadImage, imageSubmitStatus }) => {
   );
 };
 
-const IMAGE_IN_MODAL_WIDTH = window.innerWidth * 0.5;
-const relativeWidth = (selectedImage) =>
-  IMAGE_IN_MODAL_WIDTH * (selectedImage.width / selectedImage.height);
+const scaleDimension = ({ height, width }) => {
+  let scale = 0.4;
+  let originalAspectRation = width / height;
+  if (height <= width) {
+    originalAspectRation = height / width;
+    scale = 1.5;
+  }
 
+  console.log({ originalAspectRation });
+
+  return {
+    height: height * originalAspectRation * scale,
+    width: width * originalAspectRation * scale,
+  };
+};
 const ImagesGallery = ({
   uploadImage,
   imageSubmitStatus,
@@ -86,17 +97,17 @@ const ImagesGallery = ({
         />
         <Modal
           id="IMAGE_MODAL"
-          height={IMAGE_IN_MODAL_WIDTH + 61}
-          width={relativeWidth(selectedImage) + 57}
+          height={scaleDimension(selectedImage).height}
+          width={scaleDimension(selectedImage).width}
         >
           <img
             src={selectedImage.url}
             style={{
-              height: IMAGE_IN_MODAL_WIDTH,
-              width: relativeWidth(selectedImage) + 57,
+              height: scaleDimension(selectedImage).height,
+              width: scaleDimension(selectedImage).width,
             }}
-            height={IMAGE_IN_MODAL_WIDTH}
-            width={relativeWidth(selectedImage) + 57}
+            // height={selectedImage.height}
+            // width={selectedImage.width}
             alt="client tooth"
           />
         </Modal>
