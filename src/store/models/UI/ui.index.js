@@ -3,6 +3,7 @@ const model = {
     visible: false,
     appointmentModalIsOpen: false,
     paymentModalIsOpen: false,
+    imageModalIsOpen: false,
   },
   reducers: {
     toggledSideBarVisible: (state, visible) => ({
@@ -16,6 +17,10 @@ const model = {
     toggledPaymentModalIsOpen: (state, paymentModalIsOpen) => ({
       ...state,
       paymentModalIsOpen,
+    }),
+    toggledImageModalIsOpen: (state, imageModalIsOpen) => ({
+      ...state,
+      imageModalIsOpen,
     }),
   },
   effects: (dispatch) => ({
@@ -39,6 +44,7 @@ const model = {
       try {
         dispatch.UI.toggledAppointmentModalIsOpen(false);
         dispatch.UI.toggledPaymentModalIsOpen(false);
+        dispatch.UI.toggledImageModalIsOpen(false);
         dispatch.clients.closedCreateNewClientModal();
       } catch (error) {
         console.log("------hideSideBar------");
@@ -51,6 +57,8 @@ const model = {
           dispatch.UI.toggledPaymentModalIsOpen(true);
         if (modal_id === "ADD_APPOINTMENT_MODAL")
           dispatch.UI.toggledAppointmentModalIsOpen(true);
+        if (modal_id === "IMAGE_MODAL")
+          dispatch.UI.toggledImageModalIsOpen(true);
       } catch (error) {
         console.log("------hideSideBar------");
         console.log(error);

@@ -1,19 +1,24 @@
 import { updateDoc, doc, arrayUnion } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 
-const updateClientAddImageInFirestore = async (id, newImageUrl) => {
+const updateClientAddImageInFirestore = async (
+  id,
+  newImageUrl,
+  width,
+  height
+) => {
   try {
     const targetDocRef = doc(db, "clients/" + id);
     await updateDoc(targetDocRef, {
-      images: arrayUnion(newImageUrl),
+      images: arrayUnion({ url: newImageUrl, width, height }),
     });
   } catch (error) {
     console.log(error);
   }
 };
 
-const updateClientAddImage = async (id, newImageUrl) => {
-  await updateClientAddImageInFirestore(id, newImageUrl);
+const updateClientAddImage = async (id, newImageUrl, width, height) => {
+  await updateClientAddImageInFirestore(id, newImageUrl, width, height);
 
   //   localStorage.setItem(
   //     "TODAYS_CLIENTS",

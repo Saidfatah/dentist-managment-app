@@ -7,6 +7,7 @@ import { STEP_0_HEIGHT } from "../containers/CreateClientOrScheduleForm/constant
 const ModalComponent = ({
   children,
   appointmentModalIsOpen,
+  imageModalIsOpen,
   paymentModalIsOpen,
   hideModal,
   width,
@@ -27,7 +28,8 @@ const ModalComponent = ({
   }, [appointmentModalIsOpen]);
 
   const closeModal = () => {
-    if (submitStatus === "SUBMIT_SUCCESS") return hideModal();
+    if (submitStatus === "SUBMIT_SUCCESS" || id === "IMAGE_MODAL")
+      return hideModal();
 
     if (getConfirmation()) hideModal();
   };
@@ -35,6 +37,7 @@ const ModalComponent = ({
   const isOpen = () => {
     if (id === "ADD_PAYMENT_MODAL") return paymentModalIsOpen;
     if (id === "ADD_APPOINTMENT_MODAL") return appointmentModalIsOpen;
+    if (id === "IMAGE_MODAL") return imageModalIsOpen;
   };
 
   if (!isOpen()) return null;
@@ -77,6 +80,7 @@ export default connect(
   (state) => ({
     appointmentModalIsOpen: state.UI.appointmentModalIsOpen,
     paymentModalIsOpen: state.UI.paymentModalIsOpen,
+    imageModalIsOpen: state.UI.imageModalIsOpen,
     submitStatus: state.clients.submitStatus,
   }),
   (dispatch) => ({
