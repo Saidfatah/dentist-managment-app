@@ -61,22 +61,25 @@ const ImagesGallery = ({
 
   const { images } = client;
 
-  if (!images) return null;
-
   return (
     <div className="shadow-md rounded-lg cursor-pointer p-4 mb-2 border-2 border-gray-200 ">
       <div className=" flex flex-wrap ">
-        {images.map((image) => (
-          <button
-            onClick={() => {
-              showModal({ modal_id: "IMAGE_MODAL" });
-              setSelectedImage(image);
-            }}
-            className="  w-12 h-12 overflow-hidden rounded-md mb-4 mr-4"
-          >
-            <img src={image.url} alt="client tooth" className="w-full h-full" />
-          </button>
-        ))}
+        {images &&
+          images.map((image) => (
+            <button
+              onClick={() => {
+                showModal({ modal_id: "IMAGE_MODAL" });
+                setSelectedImage(image);
+              }}
+              className="  w-12 h-12 overflow-hidden rounded-md mb-4 mr-4"
+            >
+              <img
+                src={image.url}
+                alt="client tooth"
+                className="w-full h-full  bg-green-200"
+              />
+            </button>
+          ))}
         <ImageUploadForm
           uploadImage={uploadImage}
           imageSubmitStatus={imageSubmitStatus}
