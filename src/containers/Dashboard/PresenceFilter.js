@@ -1,5 +1,5 @@
 //normalcliants
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { isOrthoClient } from "../../store/models/clients/client.utils";
 import { connect } from "react-redux";
 import Table from "./Table";
@@ -16,10 +16,13 @@ const NormalClients = ({
     setAttendedNormalClientsVisitingToday,
   ] = useState([]);
 
-  const isOrthoClientFilter = (client) => {
-    if (clientType === "NORMAL") return !isOrthoClient(client);
-    if (clientType === "ORTHO") return isOrthoClient(client);
-  };
+  const isOrthoClientFilter = useCallback(
+    (client) => {
+      if (clientType === "NORMAL") return !isOrthoClient(client);
+      if (clientType === "ORTHO") return isOrthoClient(client);
+    },
+    [clientType]
+  );
   useEffect(() => {
     const notAttendedClient = [...clientsVisitingToday].filter(
       (client) => isOrthoClientFilter(client) && !client.hasAttended
@@ -30,8 +33,12 @@ const NormalClients = ({
 
     seNotAttendedClientsVisitingToday([...notAttendedClient]);
     setAttendedNormalClientsVisitingToday([...attendedNormalClients]);
-  }, [clientsVisitingToday]);
+  }, [clientsVisitingToday, isOrthoClientFilter]);
 
+  console.log(
+    clientsVisitingToday.length === 0 &&
+      notAttendedClientsVisitingToday.length === 0
+  );
   return (
     <div className="p-4">
       <h1 className=" text-lg font-bold">List D'attend</h1>
@@ -39,7 +46,10 @@ const NormalClients = ({
         confirmClientAttendance={confirmClientAttendance}
         clients={notAttendedClientsVisitingToday}
         HEADERS={["Nom", "Prénom", "N°session", "présence"]}
-        noClientsVisitingToday={clientsVisitingToday.length === 0}
+        noClientsVisitingToday={
+          clientsVisitingToday.length === 0 &&
+          notAttendedClientsVisitingToday.length === 0
+        }
       />
       <div className=" text-lg font-bold">
         <h1>Les clients present</h1>

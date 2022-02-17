@@ -1,8 +1,8 @@
 import React from "react";
-import Icon from "../../components/Icon";
 import { connect } from "react-redux";
 import { fontWeights } from "../../utils/values";
 import NavBarLinks from "./NavBarLinks";
+import Logo from "../../images/logo.png";
 
 const isMobile = document.body.offsetWidth <= 766;
 const Navbar = ({ showSideBar }) => {
@@ -18,11 +18,18 @@ const Navbar = ({ showSideBar }) => {
           onClick={() => showSideBar()}
           className="flex justify-between items-center "
         >
-          <Icon size={25} name="LOGO" />
+          <img
+            src={Logo}
+            alt="logo"
+            style={{
+              height: 30,
+              width: 30 * 1.3,
+            }}
+          />
           <span
             className={"self-center whitespace-nowrap " + fontWeights.semiBold}
           >
-            Dentist App
+            Smile dente
           </span>
         </button>
       </div>
