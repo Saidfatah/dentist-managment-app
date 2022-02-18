@@ -4,7 +4,6 @@ const func = async (dispatch, args, state) => {
   try {
     // get
     const todaysVisitingClientsFromCache = await getTodaysClientsService();
-    console.log(todaysVisitingClientsFromCache);
     // move this to when we get
     if (todaysVisitingClientsFromCache) {
       const clientsVisitingToday = todaysVisitingClientsFromCache.map((c) => {
