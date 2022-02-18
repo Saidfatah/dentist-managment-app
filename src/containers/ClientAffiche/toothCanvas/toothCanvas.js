@@ -125,7 +125,7 @@ const ToothCanvas = ({ updateShapes, client }) => {
         onMouseMove={onMouseMove}
         onMouseUp={onMouseUp}
         onMouseDown={onMouseDown}
-        className="relative bg-orange-300 rounded-md overflow-hidden"
+        className="relative bg-green-300 rounded-md overflow-hidden"
       >
         {shapes.map(({ left, top, angle, shapeName, id }) => (
           <Shape
