@@ -130,7 +130,16 @@ const ToothCanvas = ({ updateShapes, client }) => {
         {shapes.map(({ left, top, angle, shapeName, id }) => (
           <Shape
             key={id}
-            {...{ left, top, angle, shapeName, id, shapes, setShapes }}
+            {...{
+              left,
+              isEditState,
+              top,
+              angle,
+              shapeName,
+              id,
+              shapes,
+              setShapes,
+            }}
           />
         ))}
         <img
@@ -143,18 +152,10 @@ const ToothCanvas = ({ updateShapes, client }) => {
         />
       </div>
       {isEditState && (
-        <div className="w-full flex flex-wrap p-2">
-          <Shape
-            shapeName="RIGHT_ARROW"
-            isFromboard={true}
-            {...{ shapes, setShapes }}
-          />
-          <Shape
-            shapeName="CLOSE"
-            isFromboard={true}
-            {...{ shapes, setShapes }}
-          />
-          <Shape shapeName="E" isFromboard={true} {...{ shapes, setShapes }} />
+        <div className="w-full flex flex-wrap py-2">
+          {["BRACKET", "RIGHT_ARROW", "CLOSE", "E"].map((shapeName) => (
+            <Shape {...{ shapes, setShapes, shapeName, isFromboard: true }} />
+          ))}
         </div>
       )}
       {isEditState ? (

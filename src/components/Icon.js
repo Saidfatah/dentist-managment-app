@@ -176,6 +176,13 @@ const Icon = ({ name, size, classes, styles = {}, id }) => {
       </Svg>
     );
 
+  if (name === "BRACKET")
+    return (
+      <Svg>
+        <path d="M10 4V2H4v20h6v-2H6V4zm4" />
+      </Svg>
+    );
+
   return null;
 };
 

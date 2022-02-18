@@ -9,6 +9,7 @@ const Shape = ({
   top,
   angle = 0,
   id,
+  isEditState,
   isFromboard,
   setShapes,
   shapes,
@@ -44,7 +45,7 @@ const Shape = ({
         height: SHAPE_SIZE,
         zIndex: 999,
         marginRight: isFromboard ? 16 : 0,
-        marginBottom: isFromboard ? 16 : 0,
+        marginBottom: 0,
         position: isFromboard ? "static" : "absolute",
       }}
       className={
@@ -53,14 +54,14 @@ const Shape = ({
       }
       id={"SHAPE_" + id}
     >
-      {!isFromboard && shapeName != "CLOSE" ? (
+      {!isFromboard && isEditState ? (
         <div
           id={"ROTATE_HANDLER" + id}
           style={{
             top: -6,
             left: -6,
           }}
-          className=" w-3 h-3 shadow-md bg-white rounded-lg  absolute "
+          className=" w-fit h-fit shadow-md bg-white rounded-lg  absolute "
         >
           <Icon
             name="ROTATE"
@@ -70,14 +71,14 @@ const Shape = ({
           />
         </div>
       ) : null}
-      {!isFromboard ? (
+      {!isFromboard && isEditState ? (
         <div
           id={"ROTATE_HANDLER" + id}
           style={{
             top: -6,
             right: -6,
           }}
-          className=" w-3 h-3 shadow-md bg-white rounded-lg  absolute "
+          className=" w-fit h-fit shadow-md bg-white rounded-lg  absolute "
         >
           <Icon name="CLOSE" classes=" text-red-500" size={15} />
         </div>
