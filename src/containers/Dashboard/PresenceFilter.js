@@ -35,10 +35,6 @@ const NormalClients = ({
     setAttendedNormalClientsVisitingToday([...attendedNormalClients]);
   }, [clientsVisitingToday, isOrthoClientFilter]);
 
-  console.log(
-    clientsVisitingToday.length === 0 &&
-      notAttendedClientsVisitingToday.length === 0
-  );
   return (
     <div className="p-4">
       <h1 className=" text-lg font-bold">List D'attend</h1>

@@ -5,7 +5,6 @@ export default async (dispatch, args, state) => {
     const counts = await getCounts();
     if (counts) {
       const { clientsCount, paymentsCount } = counts;
-      console.log({ clientsCount, paymentsCount });
       dispatch.clients.fetchedCounts({
         clientsCount,
         paymentsCount,

@@ -27,13 +27,14 @@ const getClients = async () => {
   if (clientsFromCache != undefined && clientsFromCache != null) {
     const { clients, day_of_creation } = JSON.parse(clientsFromCache);
     const current_day = new Date().getDay();
-    if (current_day == day_of_creation) {
+    if (current_day == day_of_creation && clients && clients.length) {
       return clients;
     }
   }
 
   clients = await getTodaysClientsFirestore();
 
+  console.log(clients);
   if (clients.length)
     localStorage.setItem(
       "TODAYS_CLIENTS",
