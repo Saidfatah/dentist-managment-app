@@ -28,6 +28,13 @@ const Shape = ({
       </span>
     );
 
+  const onRemoveShape = (e) => {
+    console.log("remove shape");
+    e.stopPropagation();
+    const newShapes = [...shapes].filter(({ id: _id }) => _id !== id);
+    setShapes(newShapes);
+  };
+
   return (
     <div
       ref={shapeRef}
@@ -73,10 +80,12 @@ const Shape = ({
       ) : null}
       {!isFromboard && isEditState ? (
         <div
-          id={"ROTATE_HANDLER" + id}
+          onClick={onRemoveShape}
+          id={"CLOSE_HANDLER" + id}
           style={{
             top: -6,
             right: -6,
+            zIndex: 9999,
           }}
           className=" w-fit h-fit shadow-md bg-white rounded-lg  absolute "
         >
@@ -85,7 +94,7 @@ const Shape = ({
       ) : null}
       <div
         style={{
-          zIndex: 999,
+          zIndex: 99,
         }}
         className=" text-red-500"
       >
