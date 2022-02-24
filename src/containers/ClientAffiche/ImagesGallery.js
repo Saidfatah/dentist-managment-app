@@ -55,8 +55,6 @@ const scaleDimension = ({ height, width }) => {
     scale = 1.5;
   }
 
-  console.log({ originalAspectRation });
-
   return {
     height: height * originalAspectRation * scale,
     width: width * originalAspectRation * scale,

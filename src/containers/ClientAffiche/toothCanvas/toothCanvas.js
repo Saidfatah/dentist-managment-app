@@ -93,6 +93,8 @@ const ToothCanvas = ({ updateShapes, client }) => {
           targetShape.top = top;
         if (targetShape.left !== clickedShape.current.offsetLeft)
           targetShape.left = left;
+
+        lastAngle.current = undefined;
       } else {
         targetShape.top = top;
         targetShape.left = left;

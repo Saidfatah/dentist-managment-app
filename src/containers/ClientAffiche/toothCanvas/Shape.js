@@ -16,10 +16,7 @@ const Shape = ({
 }) => {
   const shapeRef = useRef();
 
-  useEffect(() => {
-    if (!shapeRef.current) return;
-  }, [left, angle, top]);
-
+  console.log({ angle });
   let shapeIcon = <Icon size={30} classes=" text-red-500" name={shapeName} />;
   if (shapeName === "E")
     shapeIcon = (
@@ -29,7 +26,6 @@ const Shape = ({
     );
 
   const onRemoveShape = (e) => {
-    console.log("remove shape");
     e.stopPropagation();
     const newShapes = [...shapes].filter(({ id: _id }) => _id !== id);
     setShapes(newShapes);
