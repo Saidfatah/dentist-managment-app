@@ -2,25 +2,6 @@ import React, { useState } from "react";
 import { sessionSchema } from "../../store/models/clients/client.schema";
 import { connect } from "react-redux";
 import { thootNumbers } from "../../store/models/clients/client.schema.js";
-const thootnbr = thootNumbers;
-
-const DropdawnList = ({ toothNumber, setFormField }) => {
-  const options = thootnbr.map((thootNumber) => (
-    <option key={thootNumber} value={thootNumber}>
-      {thootNumber}
-    </option>
-  ));
-  return (
-    <select
-      defaultValue={toothNumber}
-      className="w-full p-2 border-2 border-gray-200 "
-      value={toothNumber}
-      onChange={setFormField("toothNumber")}
-    >
-      {options}
-    </select>
-  );
-};
 
 const FormRow = ({ addsession }) => {
   const [canSubmit, setCanSubmit] = useState(false);
@@ -42,7 +23,11 @@ const FormRow = ({ addsession }) => {
           <p className="py-2 px-4">{date}</p>
         </td>
         <td className="py-2 bg-white text-sm">
-          <DropdawnList value={toothNumber} setFormField={setFormField} />
+          <input
+            value={toothNumber}
+            onChange={setFormField("toothNumber")}
+            className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+          />
         </td>
         <td className="py-2 bg-white text-sm">
           <input
