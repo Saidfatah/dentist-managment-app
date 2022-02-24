@@ -13,7 +13,12 @@ const Stepper = ({
 }) => {
   let step1ButtonHtml = <p className="mr-2">Cherhcer</p>;
 
-  if (isSearching) step1ButtonHtml = <Loader title="searching" />;
+  if (isSearching)
+    step1ButtonHtml = (
+      <div className="w-full  flex justify-center items-center h-full mb-1">
+        <Loader title="searching" />
+      </div>
+    );
   if (!isSearching && clientFound)
     step1ButtonHtml = (
       <>
@@ -27,10 +32,10 @@ const Stepper = ({
     step2ButtonHtml = <Loader title="entrain d'ajouter le payment ..." />;
 
   return (
-    <div className="w-full flex justify-center ">
+    <div className="w-full flex justify-center  ">
       {step === 0 ? (
         <ActionButton
-          classes="gap-0 p-2 "
+          classes="gap-0 p-2  w-24 flex items-center justify-center"
           disabled={isSearching}
           onClick={() => {
             if (clientFound) {
