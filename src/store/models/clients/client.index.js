@@ -9,6 +9,7 @@ import updateClientInfoEffect from "./effects/updateClientInfo.effect";
 import updateClientExtraInfoEffect from "./effects/updateClientExtraInfo.effect";
 import getCountsEffect from "./effects/getCounts.effect";
 import uploadImageEffect from "./effects/uploadImage.effect";
+import searchClientByCinOrFullNameEffect from "./effects/searchClientByCinOrFullName.effect";
 
 const model = {
   state: {
@@ -135,6 +136,8 @@ const model = {
 
     getClientByCIN: (args, state) =>
       getClientByCINEffect(dispatch, args, state),
+    searchClientByCinOrFullName: (args, state) =>
+      searchClientByCinOrFullNameEffect(dispatch, args, state),
 
     confirmClientAttendance: (args, state) =>
       confirmClientAttendanceEffect(dispatch, args, state),

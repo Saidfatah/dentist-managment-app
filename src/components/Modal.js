@@ -21,11 +21,13 @@ const ModalComponent = ({
     height: height,
   });
 
+  console.log({height})
+  console.log(heightInterpolated.height)
   useEffect(() => {
     if (appointmentModalIsOpen && setHeight && height !== STEP_0_HEIGHT) {
       setHeight(STEP_0_HEIGHT);
     }
-  }, [appointmentModalIsOpen]);
+  }, [appointmentModalIsOpen,height,setHeight]);
 
   const closeModal = () => {
     if (submitStatus === "SUBMIT_SUCCESS" || id === "IMAGE_MODAL")

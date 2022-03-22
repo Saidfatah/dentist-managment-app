@@ -5,7 +5,7 @@ const Stepper = ({
   clientFound,
   isSearching,
   isAddingPayment,
-  getClientByCIN,
+  searchClientByCinOrFullName,
   searchText,
   step,
   setStep,
@@ -22,8 +22,8 @@ const Stepper = ({
   if (!isSearching && clientFound)
     step1ButtonHtml = (
       <>
-        <Icon name="RIGHT" classes="mr-1" />
         <p className="mr-2">Suivant</p>
+        <Icon name="RIGHT" classes="mr-1" />
       </>
     );
 
@@ -40,7 +40,7 @@ const Stepper = ({
           onClick={() => {
             if (clientFound) {
               setStep(1);
-            } else getClientByCIN({ CIN: searchText });
+            } else searchClientByCinOrFullName({ searchText });
           }}
         >
           {step1ButtonHtml}

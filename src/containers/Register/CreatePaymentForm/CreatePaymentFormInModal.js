@@ -9,7 +9,7 @@ import { useSpring, animated } from "react-spring";
 
 const CreatePaymentFormInModal = ({
   searchedClient,
-  getClientByCIN,
+  searchClientByCinOrFullName,
   isSearching,
   searchError,
   addPayment,
@@ -81,7 +81,7 @@ const CreatePaymentFormInModal = ({
               amount,
               isSearching,
               isAddingPayment,
-              getClientByCIN,
+              searchClientByCinOrFullName,
               searchText,
               step,
               setStep,
@@ -101,7 +101,7 @@ export default connect(
     isAddingPayment: state.register.isAddingPayment,
   }),
   (dispatch) => ({
-    getClientByCIN: dispatch.clients.getClientByCIN,
+    searchClientByCinOrFullName: dispatch.clients.searchClientByCinOrFullName,
     addPayment: dispatch.register.addPayment,
     removeFoundClient: dispatch.clients.removeFoundClient,
   })

@@ -77,6 +77,7 @@ export const personalInfoSchema = (
   isOrthoClient,
   CIN
 ) => ({
+  fullName: firstName + " " + lastName || "",
   firstName,
   lastName,
   phone,
