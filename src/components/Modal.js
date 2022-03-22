@@ -21,18 +21,14 @@ const ModalComponent = ({
     height: height,
   });
 
-  console.log({height})
-  console.log(heightInterpolated.height)
-  
+  //this should run only once the commponet first renders
   useEffect(() => {
-    console.log({appointmentModalIsOpen})
-  }, [appointmentModalIsOpen]);
-  useEffect(() => {
-    if (appointmentModalIsOpen && !paymentModalIsOpen && !paymentModalIsOpen && setHeight && height !== STEP_0_HEIGHT) {
+    if (appointmentModalIsOpen  && setHeight && height !== STEP_0_HEIGHT) {
       console.log('triggering this ')
       setHeight(STEP_0_HEIGHT);
     }
-  }, [appointmentModalIsOpen,height,setHeight]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const closeModal = () => {
     if (submitStatus === "SUBMIT_SUCCESS" || id === "IMAGE_MODAL")
