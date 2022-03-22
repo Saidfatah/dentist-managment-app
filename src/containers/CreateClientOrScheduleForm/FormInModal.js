@@ -8,6 +8,7 @@ const FormInModal = () => {
   const [height, setHeight] = useState(0);
   console.log("FormInMOdal")
   useEffect(()=>{
+    console.log('FormInModal.useEffect')
     setHeight(STEP_0_HEIGHT)
   },[])
   return (
