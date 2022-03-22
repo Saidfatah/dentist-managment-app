@@ -23,8 +23,13 @@ const ModalComponent = ({
 
   console.log({height})
   console.log(heightInterpolated.height)
+  
+  useEffect(() => {
+    console.log({appointmentModalIsOpen})
+  }, [appointmentModalIsOpen]);
   useEffect(() => {
     if (appointmentModalIsOpen && setHeight && height !== STEP_0_HEIGHT) {
+      console.log('triggering this ')
       setHeight(STEP_0_HEIGHT);
     }
   }, [appointmentModalIsOpen,height,setHeight]);
